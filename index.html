@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单海晟的《高级网页设计》课堂实践</title>
+    <style>
+        :root {
+            --bg1: #071a2f;
+            --bg2: #102a4d;
+            --panel: rgba(17, 30, 52, 0.8);
+            --panel-border: rgba(255, 255, 255, 0.12);
+            --text: #edf6ff;
+            --muted: #b7c7db;
+            --primary: #67e8f9;
+            --secondary: #a78bfa;
+            --accent: #fbbf24;
+            --success: #34d399;
+            --shadow: rgba(0, 0, 0, 0.28);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(103, 232, 249, 0.22), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(167, 139, 250, 0.18), transparent 35%),
+                linear-gradient(135deg, var(--bg1), var(--bg2));
+            min-height: 100vh;
+        }
+
+        .container {
+            width: min(1200px, 90%);
+            margin: 0 auto;
+            padding: 48px 0 64px;
+        }
+
+        .hero {
+            background: rgba(9, 20, 33, 0.55);
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
+            box-shadow: 0 18px 40px var(--shadow);
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-top {
+            padding: 30px 36px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 999px;
+            background: rgba(103, 232, 249, 0.12);
+            color: var(--primary);
+            font-size: 12px;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 18px 0 10px;
+            font-size: clamp(2rem, 4vw, 3.3rem);
+            line-height: 1.2;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            margin: 0;
+            color: var(--muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            padding: 24px 36px 30px;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 18px 20px;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .content {
+            margin-top: 32px;
+        }
+
+        .section-title {
+            margin: 0 0 18px;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+        }
+
+        .unit-group {
+            margin-top: 28px;
+        }
+
+        .unit-title {
+            margin: 0 0 14px;
+            font-size: 1.08rem;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            display: block;
+            text-decoration: none;
+            color: var(--text);
+            background: var(--panel);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            padding: 22px 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            min-height: 170px;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto auto 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(103, 232, 249, 0.45);
+            box-shadow: 0 20px 28px rgba(12, 24, 40, 0.34);
+        }
+
+        .card .label {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(167, 139, 250, 0.16);
+            color: #ddd6fe;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .card h3 {
+            margin: 0 0 10px;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .prompt-box {
+            margin-top: 34px;
+            background: rgba(7, 17, 30, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            padding: 24px 24px 18px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+        }
+
+        .prompt-box h2 {
+            margin: 0 0 14px;
+            font-size: 1.35rem;
+            color: var(--primary);
+        }
+
+        .prompt-box blockquote {
+            margin: 0;
+            padding: 18px 20px;
+            border-left: 4px solid var(--accent);
+            border-radius: 0 14px 14px 0;
+            background: rgba(255, 255, 255, 0.02);
+            color: #eaf5ff;
+            line-height: 1.8;
+            font-size: 0.98rem;
+        }
+
+        @media (max-width: 700px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: min(92%, 1200px);
+                padding-top: 28px;
+            }
+
+            .hero-top,
+            .stats {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <div class="hero-top">
+                <span class="badge">课堂实践入口</span>
+                <h1>单海晟的《高级网页设计》课堂实践</h1>
+                <p class="subtitle">用原生 HTML + CSS 构建的网页作品集，记录了从基础标签到 CSS 样式进阶的学习过程。</p>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <strong>19</strong>
+                    <span>作品页面</span>
+                </div>
+                <div class="stat">
+                    <strong>1</strong>
+                    <span>统一索引页</span>
+                </div>
+                <div class="stat">
+                    <strong>100%</strong>
+                    <span>原生代码实现</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+            <h2 class="section-title">作品导航</h2>
+
+            <div class="unit-group">
+                <h3 class="unit-title">基础入门</h3>
+                <div class="project-grid">
+                    <a class="card" href="./2-1.html" target="_blank">
+                        <span class="label">第 2 课</span>
+                        <h3>2-1.html</h3>
+                        <p>HTML基础：标题、段落、列表、行内样式与文本排版练习。</p>
+                    </a>
+
+                    <a class="card" href="./2-2.html" target="_blank">
+                        <span class="label">第 2 课</span>
+                        <h3>2-2.html</h3>
+                        <p>超链接、图片、表格应用，学习网页内容的多媒介组织方式。</p>
+                    </a>
+
+                    <a class="card" href="./3-1.html" target="_blank">
+                        <span class="label">第 3 课</span>
+                        <h3>3-1.html</h3>
+                        <p>HTML 表单设计：文本框、密码框、单选、多选、下拉框与提交功能。</p>
+                    </a>
+
+                    <a class="card" href="./3-2css.html" target="_blank">
+                        <span class="label">第 3 课</span>
+                        <h3>3-2css.html</h3>
+                        <p>CSS 初步应用：选择器、颜色、尺寸、背景与层叠样式实践。</p>
+                    </a>
+
+                    <a class="card" href="./4-1.html" target="_blank">
+                        <span class="label">第 4 课</span>
+                        <h3>4-1.html</h3>
+                        <p>CSS 进阶：群组选择器、后代选择器、行高、首行缩进与文本样式。</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="unit-group">
+                <h3 class="unit-title">CSS 与布局</h3>
+                <div class="project-grid">
+                    <a class="card" href="./5-1层叠与继承.html" target="_blank">
+                        <span class="label">第 5 课</span>
+                        <h3>5-1层叠与继承.html</h3>
+                        <p>层叠顺序与继承规则，理解样式优先级和元素继承的关系。</p>
+                    </a>
+
+                    <a class="card" href="./5-2盒子模型.html" target="_blank">
+                        <span class="label">第 5 课</span>
+                        <h3>5-2盒子模型.html</h3>
+                        <p>边距、边框、内边距与内容区的组合布局和盒模型理解。</p>
+                    </a>
+
+                    <a class="card" href="./6-1flex.html" target="_blank">
+                        <span class="label">第 6 课</span>
+                        <h3>6-1flex.html</h3>
+                        <p>Flexbox 经典布局：主轴、交叉轴、对齐方式与响应式排版演示。</p>
+                    </a>
+
+                    <a class="card" href="./6-2.html" target="_blank">
+                        <span class="label">第 6 课</span>
+                        <h3>6-2.html</h3>
+                        <p>网页结构布局综合练习，结合 CSS 做更稳定的页面组织。</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="unit-group">
+                <h3 class="unit-title">版式设计</h3>
+                <div class="project-grid">
+                    <a class="card" href="./7-1上图下文.html" target="_blank">
+                        <span class="label">第 7 课</span>
+                        <h3>7-1上图下文.html</h3>
+                        <p>上图下文版式设计，练习图片与文案在页面中的视觉层次。</p>
+                    </a>
+
+                    <a class="card" href="./7-2左图右文.html" target="_blank">
+                        <span class="label">第 7 课</span>
+                        <h3>7-2左图右文.html</h3>
+                        <p>左图右文版式设计，使用浮动和布局规则进行内容编排。</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="unit-group">
+                <h3 class="unit-title">CSS3 与动画</h3>
+                <div class="project-grid">
+                    <a class="card" href="./8-1css3选择器.html" target="_blank">
+                        <span class="label">第 8 课</span>
+                        <h3>8-1css3选择器.html</h3>
+                        <p>CSS3 选择器练习，掌握结构伪类、属性选择器与高级筛选方式。</p>
+                    </a>
+
+                    <a class="card" href="./9-1transition.html" target="_blank">
+                        <span class="label">第 9 课</span>
+                        <h3>9-1transition.html</h3>
+                        <p>Transition 过渡动画实战，练习元素状态变化与平滑动画效果。</p>
+                    </a>
+
+                    <a class="card" href="./10-1animation.html" target="_blank">
+                        <span class="label">第 10 课</span>
+                        <h3>10-1animation.html</h3>
+                        <p>纯 CSS 背景颜色动画，使用 @keyframes 与 animation 制作循环效果。</p>
+                    </a>
+
+                    <a class="card" href="./10-2.html" target="_blank">
+                        <span class="label">第 10 课</span>
+                        <h3>10-2.html</h3>
+                        <p>CSS Animation 幻灯片，图片随时间自动切换的动画演示。</p>
+                    </a>
+
+                    <a class="card" href="./10-3.html" target="_blank">
+                        <span class="label">第 10 课</span>
+                        <h3>10-3.html</h3>
+                        <p>响应式全屏背景动画，结合渐变与关键帧营造动态背景。</p>
+                    </a>
+
+                    <a class="card" href="./10-4.html" target="_blank">
+                        <span class="label">第 10 课</span>
+                        <h3>10-4.html</h3>
+                        <p>媒体查询布局实践，随视口宽度调整每行盒子数量。</p>
+                    </a>
+
+                    <a class="card" href="./11-2.html" target="_blank">
+                        <span class="label">第 11 课</span>
+                        <h3>11-2.html</h3>
+                        <p>CSS3 3D 动画：旋转立方体、翻转卡片与基础 3D 变换。</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="unit-group">
+                <h3 class="unit-title">CSS 单位</h3>
+                <div class="project-grid">
+                    <a class="card" href="./11-1.html" target="_blank">
+                        <span class="label">第 11 课</span>
+                        <h3>11-1.html</h3>
+                        <p>Web 前端长度单位：绝对单位、相对单位与视口单位对比演示。</p>
+                    </a>
+                </div>
+            </div>
+
+            <section class="prompt-box">
+                <h2>本提示词</h2>
+                <blockquote>
+                    创建一个新页面，包括本目录下的所有网页的超链接，使用原生代码，不使用cdn，新页面名称为index.html，主题为单海晟的《高级网页设计》课堂实践，美化页面，页面中包括本提示词。
+                </blockquote>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

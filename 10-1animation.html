@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>纯CSS背景颜色动画</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, "Microsoft YaHei", sans-serif;
+      overflow: hidden;
+    }
+
+    .bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      animation: bgChange 8s ease-in-out infinite alternate;
+    }
+
+    .box-wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box {
+      width: 260px;
+      height: 260px;
+      border-radius: 20px;
+      background: #ff7a59;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      animation: boxChange 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgChange {
+      0% {
+        background: #f7d794;
+      }
+      25% {
+        background: #8ecae6;
+      }
+      50% {
+        background: #90be6d;
+      }
+      75% {
+        background: #ff8fab;
+      }
+      100% {
+        background: #f7d794;
+      }
+    }
+
+    @keyframes boxChange {
+      0% {
+        background: #ff7a59;
+      }
+      25% {
+        background: #4ecdc4;
+      }
+      50% {
+        background: #5b9ef4;
+      }
+      75% {
+        background: #f7b267;
+      }
+      100% {
+        background: #ff7a59;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="box-wrap">
+    <div class="box"></div>
+  </div>
+</body>
+</html>

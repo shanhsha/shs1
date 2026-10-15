@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单海晟的CSS长度单位</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            font-size: 16px;
+            --shan_primary: #4361ee;
+            --shan_accent: #f8961e;
+            --shan_green: #06d6a0;
+            --shan_pink: #ef476f;
+            --shan_ink: #252a40;
+            --shan_muted: #6b7280;
+        }
+
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            margin: 0;
+            padding: 32px 20px 56px;
+            background: #f3f5fb;
+            color: var(--shan_ink);
+            font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        main {
+            width: min(100%, 1000px);
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            text-align: center;
+            font-size: 32px;
+        }
+
+        .shan_description {
+            margin: 0 0 28px;
+            color: var(--shan_muted);
+            text-align: center;
+        }
+
+        .shan_section {
+            margin-bottom: 22px;
+            padding: 22px 24px 26px;
+            background: #fff;
+            border: 1px solid #e6e9f5;
+            border-radius: 18px;
+            box-shadow: 0 8px 22px rgb(61 57 130 / 10%);
+        }
+
+        .shan_section h2 {
+            margin: 0 0 6px;
+            font-size: 20px;
+            color: var(--shan_primary);
+        }
+
+        .shan_hint {
+            margin: 0 0 18px;
+            color: var(--shan_muted);
+            font-size: 14px;
+        }
+
+        .shan_row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .shan_row code {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: #eef1fb;
+            color: #303a63;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 13px;
+        }
+
+        .shan_bar {
+            height: 18px;
+            min-width: 2px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--shan_primary), var(--shan_accent));
+        }
+
+        .shan_bar_green {
+            background: linear-gradient(90deg, var(--shan_green), #00a878);
+        }
+
+        .shan_bar_pink {
+            background: linear-gradient(90deg, var(--shan_pink), #d62855);
+        }
+
+        .shan_measure {
+            padding: 6px 0;
+            border-bottom: 1px dashed #cfd6ea;
+        }
+
+        .shan_unit-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .shan_unit-table th,
+        .shan_unit-table td {
+            padding: 9px 10px;
+            border-bottom: 1px solid #e6e9f5;
+            text-align: left;
+        }
+
+        .shan_unit-table th {
+            background: #f7f8fd;
+            color: #303a63;
+        }
+
+        .shan_unit-table tbody tr:hover {
+            background: #fafbff;
+        }
+
+        .shan_tag_list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .shan_tag_list li {
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: #eef1fb;
+            color: #303a63;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 13px;
+        }
+
+        .shan_tip {
+            margin: 18px 0 0;
+            padding: 12px 16px;
+            border-left: 4px solid var(--shan_accent);
+            border-radius: 0 10px 10px 0;
+            background: #fff9ee;
+            color: #6b5a2e;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>单海晟的CSS长度单位</h1>
+        <p class="shan_description">绝对单位、相对单位与视口单位一览</p>
+
+        <section class="shan_section">
+            <h2>1. 绝对长度单位</h2>
+            <p class="shan_hint">长度固定，不会随屏幕或父元素变化。以下条形按各自的 CSS 值渲染。</p>
+            <div class="shan_measure">
+                <div class="shan_row">
+                    <code>width: 96px</code>
+                    <div class="shan_bar" style="width: 96px;"></div>
+                </div>
+                <div class="shan_row">
+                    <code>width: 1in</code>
+                    <div class="shan_bar" style="width: 1in;"></div>
+                </div>
+                <div class="shan_row">
+                    <code>width: 1cm</code>
+                    <div class="shan_bar" style="width: 1cm;"></div>
+                </div>
+                <div class="shan_row">
+                    <code>width: 10mm</code>
+                    <div class="shan_bar" style="width: 10mm;"></div>
+                </div>
+                <div class="shan_row">
+                    <code>width: 72pt</code>
+                    <div class="shan_bar" style="width: 72pt;"></div>
+                </div>
+                <div class="shan_row">
+                    <code>width: 6pc</code>
+                    <div class="shan_bar" style="width: 6pc;"></div>
+                </div>
+            </div>
+
+            <table class="shan_unit-table">
+                <thead>
+                    <tr>
+                        <th>单位</th>
+                        <th>含义</th>
+                        <th>换算（以 96dpi 计算）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>px</code></td><td>像素</td><td>1px = 1px</td></tr>
+                    <tr><td><code>in</code></td><td>英寸</td><td>1in = 96px</td></tr>
+                    <tr><td><code>cm</code></td><td>厘米</td><td>1cm = 37.8px</td></tr>
+                    <tr><td><code>mm</code></td><td>毫米</td><td>1mm = 3.78px</td></tr>
+                    <tr><td><code>pt</code></td><td>点</td><td>1pt = 1.333px</td></tr>
+                    <tr><td><code>pc</code></td><td>派卡</td><td>1pc = 16px</td></tr>
+                    <tr><td><code>Q</code></td><td>四分之一毫米</td><td>1Q = 0.945px</td></tr>
+                </tbody>
+            </table>
+            <p class="shan_tip">屏幕开发中最常用的是 <code>px</code>；<code>cm</code>、<code>mm</code>、<code>in</code> 主要用于打印样式。</p>
+        </section>
+
+        <section class="shan_section">
+            <h2>2. 相对长度单位</h2>
+            <p class="shan_hint">相对单位会随参考对象（父元素、根元素或字体）变化。此处根字体为 16px，宿父容器宽 100%。</p>
+            <div class="shan_measure">
+                <div class="shan_row">
+                    <code>width: 16em</code>
+                    <div class="shan_bar shan_bar_green" style="width: 16em;"></div>
+                </div>
+                <div class="shan_row">
+                    <code>width: 16rem</code>
+                    <div class="shan_bar shan_bar_green" style="width: 16rem;"></div>
+                </div>
+                <div class="shan_row">
+                    <code>width: 50%</code>
+                    <div class="shan_bar shan_bar_green" style="width: 50%;"></div>
+                </div>
+                <div class="shan_row">
+                    <code>width: 20ex</code>
+                    <div class="shan_bar shan_bar_green" style="width: 20ex;"></div>
+                </div>
+                <div class="shan_row">
+                    <code>width: 30ch</code>
+                    <div class="shan_bar shan_bar_green" style="width: 30ch;"></div>
+                </div>
+            </div>
+            <table class="shan_unit-table">
+                <thead>
+                    <tr>
+                        <th>单位</th>
+                        <th>参考对象</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>%</code></td><td>父元素的对应属性</td></tr>
+                    <tr><td><code>em</code></td><td>当前元素的字体大小</td></tr>
+                    <tr><td><code>rem</code></td><td>根元素（html）的字体大小</td></tr>
+                    <tr><td><code>ex</code></td><td>当前字体的 x 高度</td></tr>
+                    <tr><td><code>ch</code></td><td>数字 “0” 的宽度</td></tr>
+                </tbody>
+            </table>
+            <p class="shan_tip"><code>rem</code> 只参照根字体，做响应式排版时比 <code>em</code> 更稳定、更易预测。</p>
+        </section>
+
+        <section class="shan_section">
+            <h2>3. 视口单位</h2>
+            <p class="shan_hint">相对浏览器视口尺寸计算，常用于全屏与响应式布局（改变窗口大小可看到变化）。</p>
+            <div class="shan_measure">
+                <div class="shan_row">
+                    <code>width: 40vw</code>
+                    <div class="shan_bar shan_bar_pink" style="width: 40vw;"></div>
+                </div>
+                <div class="shan_row">
+                    <code>width: 40vmin</code>
+                    <div class="shan_bar shan_bar_pink" style="width: 40vmin;"></div>
+                </div>
+                <div class="shan_row">
+                    <code>width: 40vmax</code>
+                    <div class="shan_bar shan_bar_pink" style="width: 40vmax;"></div>
+                </div>
+                <div class="shan_row">
+                    <code>height: 8vh</code>
+                    <div class="shan_bar shan_bar_pink" style="height: 8vh; width: 100%;"></div>
+                </div>
+            </div>
+            <table class="shan_unit-table">
+                <thead>
+                    <tr>
+                        <th>单位</th>
+                        <th>含义</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>vw</code></td><td>视口宽度的 1%</td></tr>
+                    <tr><td><code>vh</code></td><td>视口高度的 1%</td></tr>
+                    <tr><td><code>vmin</code></td><td>vw 与 vh 中较小的 1%</td></tr>
+                    <tr><td><code>vmax</code></td><td>vw 与 vh 中较大的 1%</td></tr>
+                </tbody>
+            </table>
+            <p class="shan_tip">在移动端要注意地址栏伸缩带来的跳动：可用新单位 <code>dvh</code>、<code>svh</code>、<code>lvh</code> 分别表示动态、最小、最大视口高度。</p>
+        </section>
+
+        <section class="shan_section">
+            <h2>4. 其他常用单位</h2>
+            <p class="shan_hint">现代 CSS 还提供了按内容、行高与容器计算的单位。</p>
+            <ul class="shan_tag_list">
+                <li>fr（网格弹性份数）</li>
+                <li>lh / rlh（行高）</li>
+                <li>cqw / cqh（容器查询尺寸）</li>
+                <li>cap / ic（大写高度 / 表意文字宽度）</li>
+                <li>deg / turn（角度）</li>
+                <li>s / ms（时间）</li>
+            </ul>
+            <p class="shan_tip">单位可以混合计算，例如 <code>width: calc(100% - 2rem)</code>。</p>
+        </section>
+    </main>
+</body>
+</html>

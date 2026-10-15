@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>响应式全屏背景</title>
+  <style>
+    :root {
+      font-size: 16px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+      background: #f4d35e;
+      transition: background 0.5s ease;
+    }
+
+    .fullscreen-box {
+      width: 50rem;
+      height: 30rem;
+      max-width: 62.5rem;
+      max-height: 43.75rem;
+      border-radius: 1.875rem;
+      background: rgba(255, 255, 255, 0.18);
+      border: 0.125rem solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 1.25rem 3.125rem rgba(0, 0, 0, 0.15);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(0.25rem);
+      transition: all 0.5s ease;
+    }
+
+    .fullscreen-box h1 {
+      font-size: clamp(2rem, 4vw, 5rem);
+      color: #fff;
+      text-shadow: 0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.2);
+      letter-spacing: 0.25rem;
+      text-align: center;
+    }
+
+    @media (max-width: 1200px) {
+      body {
+        background: #7ec8e3;
+      }
+    }
+
+    @media (max-width: 900px) {
+      body {
+        background: #90be6d;
+      }
+
+      .fullscreen-box {
+        width: 42rem;
+        height: 25rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        background: #ff8fab;
+      }
+
+      .fullscreen-box {
+        width: 28rem;
+        height: 20rem;
+        border-radius: 1.25rem;
+      }
+
+      .fullscreen-box h1 {
+        letter-spacing: 0.125rem;
+        font-size: clamp(1.8rem, 7vw, 3rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="fullscreen-box">
+    <h1>单海晟</h1>
+  </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        img{}
+        .list{
+            display: flex;
+        }
+        .list li{
+            width: 30%;
+            margin-right: 3px;
+            flex-grow:1;
+            position: relative;
+        }
+        .list img{
+            width: 100%;
+        }
+        .list p{
+            text-align: center;
+            font-size: 14px;
+            line-height: 33px;
+            /* 绝对定位 */
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+
+        }
+
+
+    </style>
+</head>
+<body>
+    <ul class="list">
+        <li>
+            <img src="./img/0b92ecb4f9134ece9131b8ca2780c743.jpg">
+            <p>单海晟的上图下文</p>
+        </li>
+        <li><img src="./img/1e410a5573114db7a462a615ffa728b2.jpg">
+            <p>图片2</p>
+        </li>
+        <li><img src="./img/d5c75b8f44154fe5bb03e02f5967e0a0.jpg">
+            <p>图片3</p>
+        </li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>307单海晟</title>
+
+    <link rel="stylesheet" href="css.css"><link>
+    <style>
+        p{
+            color: #f00;
+            font-size:100px;
+        }
+
+        .text{
+            color: green;
+            font-size:100px;
+        }
+        #text{
+            color: purple;
+            font-size:100px;
+        }
+        .box p{
+            color: orange;
+            font-size:100px;
+        }
+        #box #text{
+            color: silver;
+            font-size:100px;
+        }
+        .text{
+        color: black!important;
+       }
+        #box{
+        /*宽300高400灰色背景，间距字间距5px*/
+        width: 1400px;
+        height: 400px;
+        background-color:gray;
+        letter-spacing: 10px;
+        margin: 10px;
+        padding: 10px;
+        letter-spacing: 25px;
+        /*圆角矩形50du*/
+        border-radius: 50px;
+       }
+    </style>
+
+    
+
+
+    <!-- <link rel="stylesheet" href="css.css"><link> -->
+</head>
+<body>
+    <h2>层叠与继承</h2>
+    <div id ="box" class="box">
+        <p id="text" class="text">307 单海晟</p>
+        <p>优先级</p>
+
+    </div>
+</body>
+</html>

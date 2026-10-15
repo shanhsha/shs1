@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单海晟的CSS3 3D动画</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --shan_primary: #4361ee;
+            --shan_accent: #f8961e;
+            --shan_green: #06d6a0;
+            --shan_pink: #ef476f;
+            --shan_purple: #8338ec;
+            --shan_ink: #252a40;
+            --shan_muted: #6b7280;
+        }
+
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            margin: 0;
+            padding: 32px 20px 56px;
+            background: #f3f5fb;
+            color: var(--shan_ink);
+            font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        main {
+            width: min(100%, 1000px);
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            text-align: center;
+            font-size: 32px;
+        }
+
+        .shan_description {
+            margin: 0 0 28px;
+            color: var(--shan_muted);
+            text-align: center;
+        }
+
+        .shan_section {
+            margin-bottom: 22px;
+            padding: 22px 24px 30px;
+            background: #fff;
+            border: 1px solid #e6e9f5;
+            border-radius: 18px;
+            box-shadow: 0 8px 22px rgb(61 57 130 / 10%);
+        }
+
+        .shan_section h2 {
+            margin: 0 0 6px;
+            font-size: 20px;
+            color: var(--shan_primary);
+        }
+
+        .shan_hint {
+            margin: 0 0 22px;
+            color: var(--shan_muted);
+            font-size: 14px;
+        }
+
+        .shan_center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        /* ===== 1. 旋转的 3D 立方体 ===== */
+        .shan_scene {
+            width: 180px;
+            height: 180px;
+            perspective: 700px;
+        }
+
+        .shan_cube {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            transform-style: preserve-3d;
+            animation: shan_spin 9s linear infinite;
+        }
+
+        .shan_cube:hover {
+            animation-play-state: paused;
+        }
+
+        .shan_face {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgb(255 255 255 / 55%);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: inset 0 0 40px rgb(0 0 0 / 20%);
+            opacity: 0.92;
+        }
+
+        .shan_face_front {
+            background: linear-gradient(135deg, #4361ee, #3048c5);
+            transform: translateZ(90px);
+        }
+
+        .shan_face_back {
+            background: linear-gradient(135deg, #ef476f, #d62855);
+            transform: rotateY(180deg) translateZ(90px);
+        }
+
+        .shan_face_right {
+            background: linear-gradient(135deg, #06d6a0, #00a878);
+            transform: rotateY(90deg) translateZ(90px);
+        }
+
+        .shan_face_left {
+            background: linear-gradient(135deg, #f8961e, #e76f00);
+            transform: rotateY(-90deg) translateZ(90px);
+        }
+
+        .shan_face_top {
+            background: linear-gradient(135deg, #8338ec, #6422c7);
+            transform: rotateX(90deg) translateZ(90px);
+        }
+
+        .shan_face_bottom {
+            background: linear-gradient(135deg, #118ab2, #087196);
+            transform: rotateX(-90deg) translateZ(90px);
+        }
+
+        @keyframes shan_spin {
+            from {
+                transform: rotateX(-18deg) rotateY(0deg);
+            }
+
+            to {
+                transform: rotateX(-18deg) rotateY(360deg);
+            }
+        }
+
+        /* ===== 2. 3D 翻转卡片 ===== */
+        .shan_flip {
+            width: 220px;
+            height: 280px;
+            perspective: 1000px;
+        }
+
+        .shan_flip_inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.9s;
+        }
+
+        .shan_flip:hover .shan_flip_inner {
+            transform: rotateY(180deg);
+        }
+
+        .shan_flip_face {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            border-radius: 16px;
+            color: #fff;
+            text-align: center;
+            backface-visibility: hidden;
+            box-shadow: 0 10px 24px rgb(61 57 130 / 22%);
+        }
+
+        .shan_flip_front {
+            background: linear-gradient(135deg, #667eea, #4361ee);
+        }
+
+        .shan_flip_back {
+            background: linear-gradient(135deg, #f8961e, #ef476f);
+            transform: rotateY(180deg);
+        }
+
+        .shan_flip_face strong {
+            font-size: 22px;
+        }
+
+        .shan_flip_face span {
+            font-size: 13px;
+            opacity: 0.85;
+        }
+
+        /* ===== 3. 基础 3D 变换 ===== */
+        .shan_tiles {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 26px;
+            perspective: 800px;
+        }
+
+        .shan_tile {
+            width: 110px;
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 14px;
+            background: #fff;
+            border: 1px solid #e6e9f5;
+            box-shadow: 0 8px 18px rgb(61 57 130 / 12%);
+            color: var(--shan_ink);
+            font-size: 13px;
+            text-align: center;
+            transition: transform 0.5s;
+        }
+
+        .shan_tile:hover {
+            color: #fff;
+            background: linear-gradient(135deg, var(--shan_primary), var(--shan_purple));
+        }
+
+        .shan_tile_rotatex:hover {
+            transform: rotateX(60deg);
+        }
+
+        .shan_tile_rotatey:hover {
+            transform: rotateY(60deg);
+        }
+
+        .shan_tile_rotatez:hover {
+            transform: rotateZ(25deg) scale(1.1);
+        }
+
+        .shan_tile_translatez:hover {
+            transform: translateZ(80px);
+        }
+
+        .shan_tip {
+            margin: 22px 0 0;
+            padding: 12px 16px;
+            border-left: 4px solid var(--shan_accent);
+            border-radius: 0 10px 10px 0;
+            background: #fff9ee;
+            color: #6b5a2e;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>单海晟的CSS3 3D动画</h1>
+        <p class="shan_description">透视、3D 变换与关键帧动画演示</p>
+
+        <section class="shan_section">
+            <h2>1. 旋转的 3D 立方体</h2>
+            <p class="shan_hint">六个面用 translateZ 沿 Z 轴推出，父元素设置 preserve-3d 后用 @keyframes 持续旋转。鼠标移入可暂停。</p>
+            <div class="shan_center">
+                <div class="shan_scene">
+                    <div class="shan_cube">
+                        <div class="shan_face shan_face_front">前</div>
+                        <div class="shan_face shan_face_back">后</div>
+                        <div class="shan_face shan_face_right">右</div>
+                        <div class="shan_face shan_face_left">左</div>
+                        <div class="shan_face shan_face_top">上</div>
+                        <div class="shan_face shan_face_bottom">下</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="shan_section">
+            <h2>2. 3D 翻转卡片</h2>
+            <p class="shan_hint">卡片正反面重叠，用 backface-visibility: hidden 隐藏背面；悬停时整体 rotateY(180deg) 完成翻转。</p>
+            <div class="shan_center">
+                <div class="shan_flip">
+                    <div class="shan_flip_inner">
+                        <div class="shan_flip_face shan_flip_front">
+                            <strong>正面</strong>
+                            <span>鼠标移入翻转</span>
+                        </div>
+                        <div class="shan_flip_face shan_flip_back">
+                            <strong>背面</strong>
+                            <span>rotateY(180deg)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="shan_section">
+            <h2>3. 基础 3D 变换</h2>
+            <p class="shan_hint">把鼠标移到方块上，观察 rotateX / rotateY / rotateZ / translateZ 的效果。</p>
+            <div class="shan_tiles">
+                <div class="shan_tile shan_tile_rotatex">rotateX(60deg)</div>
+                <div class="shan_tile shan_tile_rotatey">rotateY(60deg)</div>
+                <div class="shan_tile shan_tile_rotatez">rotateZ(25deg)</div>
+                <div class="shan_tile shan_tile_translatez">translateZ(80px)</div>
+            </div>
+            <p class="shan_tip">3D 效果需要祖先元素提供 <code>perspective</code>；要让子元素保留立体空间，需在父元素使用 <code>transform-style: preserve-3d</code>。</p>
+        </section>
+    </main>
+</body>
+</html>
