@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>王宇智的JavaScript</h2>
+    <script>
+        document.write("<h3>hello world,单海晟</h3>");
+        alert("hello world");
+        console.log("hello world,单海晟");
+        //prompt和confirm方法
+        //prompt方法用于获取用户输入的信息
+        //confirm方法用于确认用户操作是否执行
+        var name = prompt("请输入您的姓名");
+        alert("您的姓名是：" + name);
+        var isConfirm = confirm("您确定是18岁以上吗？");
+        if(isConfirm){
+            alert("您是18岁以上的人");
+        }else{
+            alert("您不是18岁以上的人");
+        }
+    </script>
+</body>
+</html>
