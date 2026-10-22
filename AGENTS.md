@@ -8,6 +8,12 @@ verify a change, open the `.html` file directly in a browser.
 
 ## Hard constraints (from the assignment)
 - **Native code only — no CDN, no frameworks, no external libraries.** Everything must run offline.
+- **技术栈限定：原生 HTML + CSS + JavaScript**，禁止 Vue/React/jQuery/Bootstrap 等任何框架或库。
+- **图标统一使用 `font/font_5244753_5641vvib7co/iconfont.css`**（iconfont 阿里巴巴矢量图标库）。
+  使用时通过 `<link rel="stylesheet" href="./font/font_5244753_5641vvib7co/iconfont.css">` 引入，
+  图标元素用 `class="iconfont icon-xxx"`。**禁止引入 Font Awesome、Lucide 等第三方图标库的 CDN。**
+  （历史文件 `13-1~13-4.html` 已使用其他方式，暂不批量改动；新增页面必须遵守本条。）
+- **异步数据获取统一使用浏览器原生 `fetch()` API**，禁止引入 axios 等库。
 - Each lesson page is a standalone self-contained `.html` with its styles in an inline `<style>`
   block. `css.css` is a tiny shared stylesheet used only by `5-1层叠与继承.html`.
 
