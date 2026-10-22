@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单海晟的Lucide SVG图标</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            font-size: 16px;
+            --shan_primary: #4361ee;
+            --shan_accent: #f8961e;
+            --shan_green: #06d6a0;
+            --shan_pink: #ef476f;
+            --shan_purple: #7c3aed;
+            --shan_ink: #252a40;
+            --shan_muted: #6b7280;
+        }
+
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            margin: 0;
+            padding: 32px 20px 56px;
+            background: #f3f5fb;
+            color: var(--shan_ink);
+            font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        main {
+            width: min(100%, 1040px);
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            text-align: center;
+            font-size: 32px;
+        }
+
+        .shan_description {
+            margin: 0 0 28px;
+            color: var(--shan_muted);
+            text-align: center;
+        }
+
+        .shan_section {
+            margin-bottom: 22px;
+            padding: 22px 24px 26px;
+            background: #fff;
+            border: 1px solid #e6e9f5;
+            border-radius: 18px;
+            box-shadow: 0 8px 22px rgb(61 57 130 / 10%);
+        }
+
+        .shan_section h2 {
+            margin: 0 0 6px;
+            font-size: 20px;
+            color: var(--shan_primary);
+        }
+
+        .shan_hint {
+            margin: 0 0 18px;
+            color: var(--shan_muted);
+            font-size: 14px;
+        }
+
+        .shan_hint code,
+        .shan_tip code {
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: #eef1fb;
+            color: #303a63;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 13px;
+        }
+
+        .shan_icon_grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+            gap: 12px;
+        }
+
+        .shan_icon_item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 6px 14px;
+            border: 1px dashed #d7dcf0;
+            border-radius: 14px;
+            background: #fbfcff;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .shan_icon_item:hover {
+            border-color: var(--shan_primary);
+            transform: translateY(-3px);
+        }
+
+        .shan_icon_item .lucide,
+        .shan_icon_item i {
+            width: 30px;
+            height: 30px;
+            font-size: 30px;
+            color: var(--shan_primary);
+        }
+
+        .shan_icon_item code {
+            padding: 2px 7px;
+            border-radius: 6px;
+            background: #eef1fb;
+            color: #303a63;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 12px;
+        }
+
+        .shan_demo_row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            padding: 8px 0;
+        }
+
+        .shan_demo_cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .shan_demo_cell span {
+            color: var(--shan_muted);
+            font-size: 12px;
+            font-family: Consolas, Menlo, monospace;
+        }
+
+        .shan_size_16 {
+            width: 16px;
+            height: 16px;
+        }
+
+        .shan_size_24 {
+            width: 24px;
+            height: 24px;
+        }
+
+        .shan_size_36 {
+            width: 36px;
+            height: 36px;
+        }
+
+        .shan_size_48 {
+            width: 48px;
+            height: 48px;
+        }
+
+        .shan_size_72 {
+            width: 72px;
+            height: 72px;
+        }
+
+        .shan_color_line {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            padding: 6px 0;
+        }
+
+        .shan_color_line .lucide {
+            width: 32px;
+            height: 32px;
+        }
+
+        .shan_color_line span {
+            color: var(--shan_muted);
+            font-size: 12px;
+            font-family: Consolas, Menlo, monospace;
+        }
+
+        .shan_btn_row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .shan_btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            color: #fff;
+            background: var(--shan_primary);
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .shan_btn:hover {
+            transform: translateY(-2px);
+            background: #2f4bd6;
+        }
+
+        .shan_btn .lucide {
+            width: 18px;
+            height: 18px;
+        }
+
+        .shan_btn_outline {
+            background: #fff;
+            color: var(--shan_primary);
+            border: 1px solid #c6cef7;
+        }
+
+        .shan_btn_outline:hover {
+            background: #eef1fb;
+        }
+
+        .shan_btn_green {
+            background: var(--shan_green);
+        }
+
+        .shan_btn_green:hover {
+            background: #04b185;
+        }
+
+        .shan_btn_pink {
+            background: var(--shan_pink);
+        }
+
+        .shan_btn_pink:hover {
+            background: #d62855;
+        }
+
+        .shan_nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px;
+            border-radius: 14px;
+            background: #1d2440;
+            margin-bottom: 18px;
+        }
+
+        .shan_nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 14px;
+            border-radius: 9px;
+            color: #c8d3f5;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .shan_nav a:hover,
+        .shan_nav a.shan_active {
+            background: rgba(103, 232, 249, 0.16);
+            color: #67e8f9;
+        }
+
+        .shan_nav .lucide {
+            width: 17px;
+            height: 17px;
+        }
+
+        .shan_list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border: 1px solid #e6e9f5;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .shan_list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 16px;
+            border-bottom: 1px solid #eef0f9;
+            font-size: 15px;
+        }
+
+        .shan_list li:last-child {
+            border-bottom: none;
+        }
+
+        .shan_list li:hover {
+            background: #fafbff;
+        }
+
+        .shan_list .lucide {
+            width: 20px;
+            height: 20px;
+            color: var(--shan_primary);
+            flex: none;
+        }
+
+        .shan_list .shan_status {
+            margin-left: auto;
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            background: #e8fbf4;
+            color: #04a97a;
+        }
+
+        .shan_list .shan_status_wait {
+            background: #fff4e2;
+            color: #c97a08;
+        }
+
+        .shan_raw_grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .shan_raw_cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 6px;
+            border: 1px dashed #d7dcf0;
+            border-radius: 14px;
+            background: #fbfcff;
+        }
+
+        .shan_raw_cell .lucide {
+            width: 34px;
+            height: 34px;
+            color: var(--shan_purple);
+        }
+
+        .shan_raw_cell span {
+            color: var(--shan_muted);
+            font-size: 12px;
+            font-family: Consolas, Menlo, monospace;
+        }
+
+        .shan_img_row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 18px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: #f7f8fd;
+        }
+
+        .shan_img_row img {
+            width: 28px;
+            height: 28px;
+            display: block;
+        }
+
+        .shan_code_block {
+            margin: 0 0 14px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: #1d2440;
+            color: #d8e4ff;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .shan_code_block .shan_tag {
+            color: #7dd3fc;
+        }
+
+        .shan_code_block .shan_attr {
+            color: #fbbf24;
+        }
+
+        .shan_code_block .shan_str {
+            color: #86efac;
+        }
+
+        .shan_code_block .shan_js {
+            color: #f0abfc;
+        }
+
+        .shan_unit-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .shan_unit-table th,
+        .shan_unit-table td {
+            padding: 9px 10px;
+            border-bottom: 1px solid #e6e9f5;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .shan_unit-table th {
+            background: #f7f8fd;
+            color: #303a63;
+        }
+
+        .shan_unit-table tbody tr:hover {
+            background: #fafbff;
+        }
+
+        .shan_unit-table code {
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: #eef1fb;
+            color: #303a63;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 13px;
+        }
+
+        .shan_tip {
+            margin: 18px 0 0;
+            padding: 12px 16px;
+            border-left: 4px solid var(--shan_accent);
+            border-radius: 0 10px 10px 0;
+            background: #fff9ee;
+            color: #6b5a2e;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>单海晟的 Lucide SVG 图标</h1>
+        <p class="shan_description">矢量图形（SVG）实现：把 <code>&lt;i data-lucide&gt;</code> 占位符替换为真正的 <code>&lt;svg&gt;</code> 元素</p>
+
+        <section class="shan_section">
+            <h2>1. 图标网格</h2>
+            <p class="shan_hint">写法是 <code>&lt;i data-lucide="house"&gt;&lt;/i&gt;</code>，页面底部引入本地 <code>./cdn/lucide/lucide.min.js</code> 并调用 <code>lucide.createIcons()</code>，占位符就会被替换成 <code>&lt;svg class="lucide lucide-house"&gt;</code>。</p>
+            <div class="shan_icon_grid">
+                <div class="shan_icon_item"><i data-lucide="house" aria-hidden="true"></i><code>house</code></div>
+                <div class="shan_icon_item"><i data-lucide="heart" aria-hidden="true"></i><code>heart</code></div>
+                <div class="shan_icon_item"><i data-lucide="star" aria-hidden="true"></i><code>star</code></div>
+                <div class="shan_icon_item"><i data-lucide="search" aria-hidden="true"></i><code>search</code></div>
+                <div class="shan_icon_item"><i data-lucide="settings" aria-hidden="true"></i><code>settings</code></div>
+                <div class="shan_icon_item"><i data-lucide="user" aria-hidden="true"></i><code>user</code></div>
+                <div class="shan_icon_item"><i data-lucide="bell" aria-hidden="true"></i><code>bell</code></div>
+                <div class="shan_icon_item"><i data-lucide="mail" aria-hidden="true"></i><code>mail</code></div>
+                <div class="shan_icon_item"><i data-lucide="camera" aria-hidden="true"></i><code>camera</code></div>
+                <div class="shan_icon_item"><i data-lucide="music" aria-hidden="true"></i><code>music</code></div>
+                <div class="shan_icon_item"><i data-lucide="lock" aria-hidden="true"></i><code>lock</code></div>
+                <div class="shan_icon_item"><i data-lucide="cloud-sun" aria-hidden="true"></i><code>cloud-sun</code></div>
+                <div class="shan_icon_item"><i data-lucide="palette" aria-hidden="true"></i><code>palette</code></div>
+                <div class="shan_icon_item"><i data-lucide="rocket" aria-hidden="true"></i><code>rocket</code></div>
+                <div class="shan_icon_item"><i data-lucide="shield-check" aria-hidden="true"></i><code>shield-check</code></div>
+                <div class="shan_icon_item"><i data-lucide="trash-2" aria-hidden="true"></i><code>trash-2</code></div>
+                <div class="shan_icon_item"><i data-lucide="download" aria-hidden="true"></i><code>download</code></div>
+                <div class="shan_icon_item"><i data-lucide="link" aria-hidden="true"></i><code>link</code></div>
+                <div class="shan_icon_item"><i data-lucide="eye" aria-hidden="true"></i><code>eye</code></div>
+                <div class="shan_icon_item"><i data-lucide="circle-check" aria-hidden="true"></i><code>circle-check</code></div>
+                <div class="shan_icon_item"><i data-lucide="triangle-alert" aria-hidden="true"></i><code>triangle-alert</code></div>
+                <div class="shan_icon_item"><i data-lucide="zap" aria-hidden="true"></i><code>zap</code></div>
+                <div class="shan_icon_item"><i data-lucide="code" aria-hidden="true"></i><code>code</code></div>
+                <div class="shan_icon_item"><i data-lucide="terminal" aria-hidden="true"></i><code>terminal</code></div>
+                <div class="shan_icon_item"><i data-lucide="calendar" aria-hidden="true"></i><code>calendar</code></div>
+                <div class="shan_icon_item"><i data-lucide="clock" aria-hidden="true"></i><code>clock</code></div>
+                <div class="shan_icon_item"><i data-lucide="map-pin" aria-hidden="true"></i><code>map-pin</code></div>
+                <div class="shan_icon_item"><i data-lucide="sun" aria-hidden="true"></i><code>sun</code></div>
+                <div class="shan_icon_item"><i data-lucide="moon" aria-hidden="true"></i><code>moon</code></div>
+                <div class="shan_icon_item"><i data-lucide="bug" aria-hidden="true"></i><code>bug</code></div>
+                <div class="shan_icon_item"><i data-lucide="database" aria-hidden="true"></i><code>database</code></div>
+                <div class="shan_icon_item"><i data-lucide="anchor" aria-hidden="true"></i><code>anchor</code></div>
+                <div class="shan_icon_item"><i data-lucide="leaf" aria-hidden="true"></i><code>leaf</code></div>
+                <div class="shan_icon_item"><i data-lucide="flame" aria-hidden="true"></i><code>flame</code></div>
+                <div class="shan_icon_item"><i data-lucide="file-text" aria-hidden="true"></i><code>file-text</code></div>
+                <div class="shan_icon_item"><i data-lucide="folder" aria-hidden="true"></i><code>folder</code></div>
+                <div class="shan_icon_item"><i data-lucide="globe" aria-hidden="true"></i><code>globe</code></div>
+                <div class="shan_icon_item"><i data-lucide="wifi" aria-hidden="true"></i><code>wifi</code></div>
+                <div class="shan_icon_item"><i data-lucide="headphones" aria-hidden="true"></i><code>headphones</code></div>
+                <div class="shan_icon_item"><i data-lucide="sparkles" aria-hidden="true"></i><code>sparkles</code></div>
+                <div class="shan_icon_item"><i data-lucide="github" aria-hidden="true"></i><code>github</code></div>
+                <div class="shan_icon_item"><i data-lucide="arrow-right" aria-hidden="true"></i><code>arrow-right</code></div>
+                <div class="shan_icon_item"><i data-lucide="chevron-right" aria-hidden="true"></i><code>chevron-right</code></div>
+                <div class="shan_icon_item"><i data-lucide="plus" aria-hidden="true"></i><code>plus</code></div>
+                <div class="shan_icon_item"><i data-lucide="minus" aria-hidden="true"></i><code>minus</code></div>
+                <div class="shan_icon_item"><i data-lucide="check" aria-hidden="true"></i><code>check</code></div>
+                <div class="shan_icon_item"><i data-lucide="menu" aria-hidden="true"></i><code>menu</code></div>
+                <div class="shan_icon_item"><i data-lucide="x" aria-hidden="true"></i><code>x</code></div>
+            </div>
+        </section>
+
+        <section class="shan_section">
+            <h2>2. 尺寸、颜色与线宽</h2>
+            <p class="shan_hint">SVG 是图形元素，用 <code>width / height</code> 控制尺寸，用 <code>color → stroke:currentColor</code> 控制颜色，用 <code>stroke-width</code> 控制线条粗细，放大缩小都不会失真。</p>
+            <div class="shan_demo_row">
+                <div class="shan_demo_cell"><i data-lucide="heart" class="shan_size_16" aria-hidden="true"></i><span>16px</span></div>
+                <div class="shan_demo_cell"><i data-lucide="heart" class="shan_size_24" aria-hidden="true"></i><span>24px</span></div>
+                <div class="shan_demo_cell"><i data-lucide="heart" class="shan_size_36" aria-hidden="true"></i><span>36px</span></div>
+                <div class="shan_demo_cell"><i data-lucide="heart" class="shan_size_48" aria-hidden="true"></i><span>48px</span></div>
+                <div class="shan_demo_cell"><i data-lucide="heart" class="shan_size_72" aria-hidden="true"></i><span>72px</span></div>
+            </div>
+            <div class="shan_color_line">
+                <div class="shan_demo_cell"><i data-lucide="circle-check" style="color: #06d6a0;" aria-hidden="true"></i><span>#06d6a0</span></div>
+                <div class="shan_demo_cell"><i data-lucide="circle-check" style="color: #4361ee;" aria-hidden="true"></i><span>#4361ee</span></div>
+                <div class="shan_demo_cell"><i data-lucide="circle-check" style="color: #f8961e;" aria-hidden="true"></i><span>#f8961e</span></div>
+                <div class="shan_demo_cell"><i data-lucide="circle-check" style="color: #7c3aed;" aria-hidden="true"></i><span>#7c3aed</span></div>
+                <div class="shan_demo_cell"><i data-lucide="circle-check" style="color: #ef476f;" aria-hidden="true"></i><span>#ef476f</span></div>
+            </div>
+            <div class="shan_color_line">
+                <div class="shan_demo_cell"><i data-lucide="shield-check" style="stroke-width: 1;" aria-hidden="true"></i><span>stroke-width:1</span></div>
+                <div class="shan_demo_cell"><i data-lucide="shield-check" style="stroke-width: 2;" aria-hidden="true"></i><span>stroke-width:2</span></div>
+                <div class="shan_demo_cell"><i data-lucide="shield-check" style="stroke-width: 3;" aria-hidden="true"></i><span>stroke-width:3</span></div>
+                <div class="shan_demo_cell"><i data-lucide="shield-check" style="stroke-width: 4;" aria-hidden="true"></i><span>stroke-width:4</span></div>
+                <div class="shan_demo_cell"><i data-lucide="shield-check" style="stroke-width: 6;" aria-hidden="true"></i><span>stroke-width:6</span></div>
+            </div>
+            <p class="shan_hint" style="margin-top: 12px; margin-bottom: 0;">同一个图标可以再改属性，例如 <code>&lt;i data-lucide="heart" fill="currentColor"&gt;</code> 会把空心变成实心：</p>
+            <div class="shan_color_line">
+                <div class="shan_demo_cell"><i data-lucide="heart" aria-hidden="true"></i><span>默认空心</span></div>
+                <div class="shan_demo_cell"><i data-lucide="heart" fill="currentColor" style="color: #ef476f;" aria-hidden="true"></i><span>fill 填充</span></div>
+                <div class="shan_demo_cell"><i data-lucide="star" fill="currentColor" style="color: #f8961e;" aria-hidden="true"></i><span>fill 金色</span></div>
+                <div class="shan_demo_cell"><i data-lucide="zap" fill="currentColor" style="color: #4361ee;" aria-hidden="true"></i><span>fill 蓝色</span></div>
+            </div>
+        </section>
+
+        <section class="shan_section">
+            <h2>3. 应用场景</h2>
+            <p class="shan_hint">图标在按钮、导航、列表中可以随容器文字一起继承字号与颜色。</p>
+            <div class="shan_btn_row">
+                <button class="shan_btn" type="button"><i data-lucide="download" aria-hidden="true"></i>下载</button>
+                <button class="shan_btn shan_btn_green" type="button"><i data-lucide="check" aria-hidden="true"></i>确认提交</button>
+                <button class="shan_btn shan_btn_pink" type="button"><i data-lucide="trash-2" aria-hidden="true"></i>删除</button>
+                <button class="shan_btn shan_btn_outline" type="button"><i data-lucide="plus" aria-hidden="true"></i>新建</button>
+                <button class="shan_btn shan_btn_outline" type="button">继续<i data-lucide="arrow-right" aria-hidden="true"></i></button>
+            </div>
+
+            <nav class="shan_nav">
+                <a href="#" class="shan_active"><i data-lucide="house" aria-hidden="true"></i>首页</a>
+                <a href="#"><i data-lucide="compass" aria-hidden="true"></i>发现</a>
+                <a href="#"><i data-lucide="message-circle" aria-hidden="true"></i>消息</a>
+                <a href="#"><i data-lucide="shopping-cart" aria-hidden="true"></i>购物车</a>
+                <a href="#"><i data-lucide="user" aria-hidden="true"></i>我的</a>
+                <a href="#"><i data-lucide="settings" aria-hidden="true"></i>设置</a>
+            </nav>
+
+            <ul class="shan_list">
+                <li>
+                    <i data-lucide="file-text" aria-hidden="true"></i>
+                    课程报告首页.docx
+                    <span class="shan_status">已完成</span>
+                </li>
+                <li>
+                    <i data-lucide="image" aria-hidden="true"></i>
+                    作品截图素材.zip
+                    <span class="shan_status">已完成</span>
+                </li>
+                <li>
+                    <i data-lucide="code" aria-hidden="true"></i>
+                    13-2.html 页面代码
+                    <span class="shan_status shan_status_wait">进行中</span>
+                </li>
+                <li>
+                    <i data-lucide="headphones" aria-hidden="true"></i>
+                    网页配乐资源
+                    <span class="shan_status shan_status_wait">进行中</span>
+                </li>
+            </ul>
+        </section>
+
+        <section class="shan_section">
+            <h2>4. 不依赖 JS：直接使用 SVG 源码</h2>
+            <p class="shan_hint">Lucide 的每个图标就是一段普通 SVG 标记，可以手写进 HTML（下面 4 个图标即 <code>./cdn/lucide/icons/</code> 中的文件内容），完全不需要脚本，也能用 CSS 随意改色、改线宽。</p>
+            <div class="shan_raw_grid">
+                <div class="shan_raw_cell">
+                    <svg class="lucide lucide-house" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                        <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    </svg>
+                    <span>house</span>
+                </div>
+                <div class="shan_raw_cell">
+                    <svg class="lucide lucide-heart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                    </svg>
+                    <span>heart</span>
+                </div>
+                <div class="shan_raw_cell">
+                    <svg class="lucide lucide-rocket" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+                    </svg>
+                    <span>rocket</span>
+                </div>
+                <div class="shan_raw_cell">
+                    <svg class="lucide lucide-sparkles" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                        <path d="M20 3v4" />
+                        <path d="M22 5h-4" />
+                        <path d="M4 17v2" />
+                        <path d="M5 18H3" />
+                    </svg>
+                    <span>sparkles</span>
+                </div>
+            </div>
+            <p class="shan_hint" style="margin-bottom: 10px;">也可以把 SVG 当作图片文件引用（本地 <code>./cdn/lucide/icons/</code> 下已下载 8 个）：</p>
+            <div class="shan_img_row">
+                <img src="./cdn/lucide/icons/house.svg" alt="house">
+                <img src="./cdn/lucide/icons/heart.svg" alt="heart">
+                <img src="./cdn/lucide/icons/rocket.svg" alt="rocket">
+                <img src="./cdn/lucide/icons/sparkles.svg" alt="sparkles">
+                <img src="./cdn/lucide/icons/code.svg" alt="code">
+                <img src="./cdn/lucide/icons/star.svg" alt="star">
+                <img src="./cdn/lucide/icons/zap.svg" alt="zap">
+                <img src="./cdn/lucide/icons/shield-check.svg" alt="shield-check">
+                <span style="color: #6b7280; font-size: 13px;">&lt;img src="./cdn/lucide/icons/rocket.svg"&gt; —— 简单，但颜色固定，不能用 CSS 改色</span>
+            </div>
+            <pre class="shan_code_block" style="margin-top: 14px;"><span class="shan_tag">&lt;svg</span> <span class="shan_attr">class</span>=<span class="shan_str">"lucide lucide-rocket"</span> <span class="shan_attr">xmlns</span>=<span class="shan_str">"http://www.w3.org/2000/svg"</span> <span class="shan_attr">width</span>=<span class="shan_str">"24"</span> <span class="shan_attr">height</span>=<span class="shan_str">"24"</span>
+     <span class="shan_attr">viewBox</span>=<span class="shan_str">"0 0 24 24"</span> <span class="shan_attr">fill</span>=<span class="shan_str">"none"</span> <span class="shan_attr">stroke</span>=<span class="shan_str">"currentColor"</span> <span class="shan_attr">stroke-width</span>=<span class="shan_str">"2"</span>
+     <span class="shan_attr">stroke-linecap</span>=<span class="shan_str">"round"</span> <span class="shan_attr">stroke-linejoin</span>=<span class="shan_str">"round"</span><span class="shan_tag">&gt;</span>
+  <span class="shan_tag">&lt;path</span> <span class="shan_attr">d</span>=<span class="shan_str">"M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2..."</span> <span class="shan_tag">/&gt;</span>
+<span class="shan_tag">&lt;/svg&gt;</span></pre>
+        </section>
+
+        <section class="shan_section">
+            <h2>5. 脚本调用与两种图标方式对比</h2>
+            <p class="shan_hint">本页引入的本地脚本与调用代码：</p>
+            <pre class="shan_code_block"><span class="shan_tag">&lt;script</span> <span class="shan_attr">src</span>=<span class="shan_str">"./cdn/lucide/lucide.min.js"</span><span class="shan_tag">&gt;&lt;/script&gt;</span>
+<span class="shan_tag">&lt;script&gt;</span>
+  <span class="shan_js">lucide</span>.createIcons({ attrs: { <span class="shan_str">"stroke-width"</span>: 2 } });
+<span class="shan_tag">&lt;/script&gt;</span></pre>
+            <table class="shan_unit-table">
+                <thead>
+                    <tr>
+                        <th>对比项</th>
+                        <th>字体图标（Font Awesome / 13-1.html）</th>
+                        <th>SVG 图标（Lucide / 本页）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>实现方式</td><td>@font-face 加载字体，<code>::before</code> 打出字符</td><td>内联 <code>&lt;svg&gt;</code> 元素或引用 .svg 文件</td></tr>
+                    <tr><td>尺寸控制</td><td><code>font-size</code>（可配 fa-2x 等）</td><td><code>width / height</code>，矢量缩放不模糊</td></tr>
+                    <tr><td>颜色控制</td><td>整个图标一个 <code>color</code></td><td><code>color</code>（stroke）或 <code>fill</code>，可按 path 分别设置</td></tr>
+                    <tr><td>线条粗细</td><td>由字体设计决定，无法修改</td><td><code>stroke-width</code> 随时可改</td></tr>
+                    <tr><td>加载开销</td><td>字体文件一次加载，全站复用</td><td>内联会增加 HTML 体积；文件方式按请求加载</td></tr>
+                    <tr><td>动画</td><td>对整个字形做 transform 动画</td><td>可对路径、描边、虚线做精细动画</td></tr>
+                    <tr><td>可编辑性</td><td>需要字体编辑工具</td><td>直接改 path 的 d 属性即可</td></tr>
+                </tbody>
+            </table>
+            <p class="shan_tip">字体图标胜在“像文字一样好用、加载一次全站可用”；SVG 图标胜在“可塑性强：多色、变线宽、可裁剪、可做路径动画”。两种方式本地文件都放在 <code>./cdn/</code> 目录，断网也能正常显示。</p>
+        </section>
+    </main>
+
+    <script src="./cdn/lucide/lucide.min.js"></script>
+    <script>
+        lucide.createIcons({ attrs: { "stroke-width": 2 } });
+    </script>
+</body>
+</html>

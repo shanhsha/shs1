@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>单海晟的移动端底部导航（字体图标）</title>
+    <link rel="stylesheet" href="./font/font_5244753_5641vvib7co/iconfont.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            font-size: 16px;
+            --shan_primary: #4361ee;
+            --shan_accent: #f8961e;
+            --shan_green: #06d6a0;
+            --shan_red: #ff3b30;
+            --shan_ink: #252a40;
+            --shan_muted: #6b7280;
+            --shan_tab_height: 58px;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: #dfe3f1;
+            color: var(--shan_ink);
+            font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        .shan_app {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: #f3f5fb;
+            box-shadow: 0 0 40px rgb(37 42 64 / 18%);
+        }
+
+        .shan_topbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 16px;
+            background: rgb(255 255 255 / 92%);
+            border-bottom: 1px solid #e6e9f5;
+            backdrop-filter: blur(6px);
+        }
+
+        .shan_topbar h1 {
+            margin: 0;
+            font-size: 17px;
+            letter-spacing: 1px;
+        }
+
+        .shan_topbar p {
+            margin: 2px 0 0;
+            font-size: 12px;
+            color: var(--shan_muted);
+        }
+
+        .shan_bell {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: #eef1fb;
+            color: var(--shan_primary);
+        }
+
+        .shan_bell .iconfont {
+            font-size: 20px;
+        }
+
+        .shan_main {
+            padding: 16px 14px calc(var(--shan_tab_height) + 46px);
+        }
+
+        .shan_section {
+            margin-bottom: 16px;
+            padding: 16px 14px 20px;
+            background: #fff;
+            border: 1px solid #e6e9f5;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgb(61 57 130 / 8%);
+        }
+
+        .shan_section h2 {
+            margin: 0 0 6px;
+            font-size: 17px;
+            color: var(--shan_primary);
+        }
+
+        .shan_hint {
+            margin: 0 0 14px;
+            color: var(--shan_muted);
+            font-size: 13px;
+        }
+
+        .shan_hint code {
+            padding: 1px 5px;
+            border-radius: 5px;
+            background: #eef1fb;
+            color: #303a63;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 12px;
+        }
+
+        .shan_card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 14px;
+            margin-bottom: 10px;
+            border: 1px solid #eef0f9;
+            border-radius: 14px;
+            background: #fbfcff;
+        }
+
+        .shan_card:last-child {
+            margin-bottom: 0;
+        }
+
+        .shan_card_icon {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            flex: none;
+            border-radius: 12px;
+            background: #eef1fb;
+            color: var(--shan_primary);
+            font-size: 20px;
+        }
+
+        .shan_card_text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .shan_card_text strong {
+            display: block;
+            font-size: 14px;
+        }
+
+        .shan_card_text span {
+            display: block;
+            font-size: 12px;
+            color: var(--shan_muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .shan_time {
+            flex: none;
+            font-size: 11px;
+            color: #9aa3bd;
+        }
+
+        .shan_badge {
+            position: absolute;
+            top: -7px;
+            right: -11px;
+            min-width: 17px;
+            height: 17px;
+            padding: 0 5px;
+            border-radius: 999px;
+            background: var(--shan_red);
+            color: #fff;
+            font-size: 10px;
+            font-style: normal;
+            line-height: 17px;
+            text-align: center;
+            letter-spacing: 0;
+            box-shadow: 0 0 0 2px #fff;
+            box-sizing: border-box;
+        }
+
+        .shan_dot {
+            position: absolute;
+            top: -3px;
+            right: -5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--shan_red);
+            box-shadow: 0 0 0 2px #fff;
+        }
+
+        .shan_code_block {
+            margin: 0 0 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: #1d2440;
+            color: #d8e4ff;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 12px;
+            line-height: 1.8;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .shan_code_block .shan_tag {
+            color: #7dd3fc;
+        }
+
+        .shan_code_block .shan_attr {
+            color: #fbbf24;
+        }
+
+        .shan_code_block .shan_str {
+            color: #86efac;
+        }
+
+        .shan_table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .shan_table th,
+        .shan_table td {
+            padding: 8px 8px;
+            border-bottom: 1px solid #e6e9f5;
+            text-align: left;
+        }
+
+        .shan_table th {
+            background: #f7f8fd;
+            color: #303a63;
+        }
+
+        .shan_table code {
+            padding: 1px 5px;
+            border-radius: 5px;
+            background: #eef1fb;
+            color: #303a63;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 12px;
+        }
+
+        .shan_table .shan_td_badge {
+            white-space: nowrap;
+        }
+
+        .shan_mini_badge {
+            display: inline-block;
+            min-width: 16px;
+            padding: 0 5px;
+            border-radius: 999px;
+            background: var(--shan_red);
+            color: #fff;
+            font-size: 10px;
+            line-height: 16px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .shan_mini-dot {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--shan_red);
+            vertical-align: middle;
+            margin: 0 3px;
+        }
+
+        .shan_icon_grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+            gap: 10px;
+        }
+
+        .shan_icon_cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 4px;
+            border: 1px dashed #d7dcf0;
+            border-radius: 12px;
+            background: #fbfcff;
+            color: #303a63;
+        }
+
+        .shan_icon_cell .iconfont {
+            font-size: 26px;
+            color: var(--shan_primary);
+        }
+
+        .shan_icon_cell code {
+            font-family: Consolas, Menlo, monospace;
+            font-size: 11px;
+            color: #5a6486;
+        }
+
+        .shan_tip {
+            margin: 14px 0 0;
+            padding: 10px 14px;
+            border-left: 4px solid var(--shan_accent);
+            border-radius: 0 10px 10px 0;
+            background: #fff9ee;
+            color: #6b5a2e;
+            font-size: 13px;
+        }
+
+        .shan_tabbar {
+            position: fixed;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            align-items: stretch;
+            width: 100%;
+            max-width: 480px;
+            height: calc(var(--shan_tab_height) + env(safe-area-inset-bottom, 0px));
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            background: #fff;
+            border-top: 1px solid #e6e9f5;
+            box-shadow: 0 -8px 24px rgb(37 42 64 / 10%);
+        }
+
+        .shan_tab {
+            position: relative;
+            flex: 1 1 0;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            padding: 6px 2px;
+            text-decoration: none;
+            color: var(--shan_muted);
+            font-size: 11px;
+            transition: color 0.2s ease;
+        }
+
+        .shan_tab .shan_icon_box {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 28px;
+        }
+
+        .shan_tab .shan_icon_box .iconfont {
+            font-size: 24px;
+            line-height: 1;
+            color: currentColor;
+            transition: transform 0.2s ease;
+        }
+
+        .shan_tab .shan_label {
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .shan_tab.shan_active {
+            color: var(--shan_primary);
+            font-weight: 700;
+        }
+
+        .shan_tab.shan_active .shan_icon_box .iconfont {
+            transform: translateY(-2px) scale(1.08);
+        }
+
+        .shan_tab:hover {
+            color: var(--shan_primary);
+        }
+
+        .shan_tab .shan_badge {
+            box-shadow: 0 0 0 2px #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="shan_app">
+        <header class="shan_topbar">
+            <div>
+                <h1>移动端底部导航 · 字体图标</h1>
+                <p style="color: var(--shan_primary); font-weight: 700;">24001010307 单海晟</p>
+                <p>iconfont 字体（iconfont.css + woff2）</p>
+            </div>
+            <span class="shan_bell">
+                <i class="iconfont icon-pinglun"></i>
+                <span class="shan_dot"></span>
+            </span>
+        </header>
+
+        <main class="shan_main">
+            <section class="shan_section">
+                <h2>1. 固定 + 自适应宽的底部导航</h2>
+                <p class="shan_hint">
+                    导航条用 <code>position: fixed</code> 固定在屏幕底部，滚动内容时始终可见；
+                    宽度 <code>width: 100%</code> 随屏幕自适应（手机满屏、桌面居中 480px），4 个项目各占 <code>flex: 1</code>，等分自适应宽度。
+                    本页 4 个导航项：首页、发现、商城、我的，图标均来自 font 目录中的 iconfont 字体。
+                </p>
+                <table class="shan_table">
+                    <thead>
+                        <tr>
+                            <th>导航项</th>
+                            <th>字体类名</th>
+                            <th>右上角标记</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>首页</td>
+                            <td><code>icon-shouye3</code></td>
+                            <td class="shan_td_badge"><span class="shan_mini-dot"></span>红点（有新内容）</td>
+                        </tr>
+                        <tr>
+                            <td>发现</td>
+                            <td><code>icon-faxian</code></td>
+                            <td class="shan_td_badge"><span class="shan_mini-badge">6</span>数字徽章</td>
+                        </tr>
+                        <tr>
+                            <td>商城</td>
+                            <td><code>icon-shangcheng</code></td>
+                            <td class="shan_td_badge"><span class="shan_mini-badge">99+</span>数字徽章（上限 99+）</td>
+                        </tr>
+                        <tr>
+                            <td>我的</td>
+                            <td><code>icon-wode</code></td>
+                            <td class="shan_td_badge"><span class="shan_mini-badge">3</span>数字徽章</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="shan_hint" style="margin: 12px 0 0;">试试点击底部导航切换选中状态（红点与数字徽章始终贴在图标右上角）。</p>
+            </section>
+
+            <section class="shan_section">
+                <h2>2. 关键代码</h2>
+                <p class="shan_hint">固定定位、自适应宽度与安全区适配：</p>
+                <pre class="shan_code_block"><span class="shan_tag">.shan_tabbar</span> {
+  <span class="shan_attr">position</span>: <span class="shan_str">fixed</span>;          <span class="shan_attr">/* 固定在底部，不随滚动移动 */</span>
+  <span class="shan_attr">left</span>: <span class="shan_str">50%</span>; <span class="shan_attr">bottom</span>: <span class="shan_str">0</span>; <span class="shan_attr">transform</span>: <span class="shan_str">translateX(-50%)</span>;
+  <span class="shan_attr">width</span>: <span class="shan_str">100%</span>; <span class="shan_attr">max-width</span>: <span class="shan_str">480px</span>;  <span class="shan_attr">/* 宽度自适应 */</span>
+  <span class="shan_attr">display</span>: <span class="shan_str">flex</span>;
+  <span class="shan_attr">height</span>: <span class="shan_str">calc(58px + env(safe-area-inset-bottom))</span>;
+}
+<span class="shan_tag">.shan_tab</span> { <span class="shan_attr">flex</span>: <span class="shan_str">1 1 0</span>; }   <span class="shan_attr">/* 4 项等分自适应宽度 */</span></pre>
+                <p class="shan_hint">一个导航项 + 右上角徽章的结构：</p>
+                <pre class="shan_code_block"><span class="shan_tag">&lt;a</span> <span class="shan_attr">class</span>=<span class="shan_str">"shan_tab"</span> <span class="shan_attr">href</span>=<span class="shan_str">"#"</span><span class="shan_tag">&gt;</span>
+  <span class="shan_tag">&lt;span</span> <span class="shan_attr">class</span>=<span class="shan_str">"shan_icon_box"</span><span class="shan_tag">&gt;</span>
+    <span class="shan_tag">&lt;i</span> <span class="shan_attr">class</span>=<span class="shan_str">"iconfont icon-shangcheng"</span><span class="shan_tag">&gt;&lt;/i&gt;</span>
+    <span class="shan_tag">&lt;em</span> <span class="shan_attr">class</span>=<span class="shan_str">"shan_badge"</span><span class="shan_tag">&gt;</span>99+<span class="shan_tag">&lt;/em&gt;</span>   <span class="shan_attr">/* 右上角数字徽章 */</span>
+  <span class="shan_tag">&lt;/span&gt;</span>
+  <span class="shan_tag">&lt;span</span> <span class="shan_attr">class</span>=<span class="shan_str">"shan_label"</span><span class="shan_tag">&gt;</span>商城<span class="shan_tag">&lt;/span&gt;</span>
+<span class="shan_tag">&lt;/a&gt;</span></pre>
+                <p class="shan_hint">徽章与红点都用绝对定位挂在图标盒右上角：</p>
+                <pre class="shan_code_block"><span class="shan_tag">.shan_icon_box</span> { <span class="shan_attr">position</span>: <span class="shan_str">relative</span>; }
+<span class="shan_tag">.shan_badge</span> {
+  <span class="shan_attr">position</span>: <span class="shan_str">absolute</span>; <span class="shan_attr">top</span>: <span class="shan_str">-7px</span>; <span class="shan_attr">right</span>: <span class="shan_str">-11px</span>;
+  <span class="shan_attr">min-width</span>: <span class="shan_str">17px</span>; <span class="shan_attr">height</span>: <span class="shan_str">17px</span>; <span class="shan_attr">padding</span>: <span class="shan_str">0 5px</span>;
+  <span class="shan_attr">border-radius</span>: <span class="shan_str">999px</span>; <span class="shan_attr">background</span>: <span class="shan_str">#ff3b30</span>;
+  <span class="shan_attr">box-shadow</span>: <span class="shan_str">0 0 0 2px #fff</span>;   <span class="shan_attr">/* 白色描边，压在图标上更清楚 */</span>
+}
+<span class="shan_tag">.shan_dot</span> { <span class="shan_attr">width</span>: <span class="shan_str">10px</span>; <span class="shan_attr">height</span>: <span class="shan_str">10px</span>; <span class="shan_attr">border-radius</span>: <span class="shan_str">50%</span>; <span class="shan_attr">background</span>: <span class="shan_str">#ff3b30</span>; }</pre>
+            </section>
+
+            <section class="shan_section">
+                <h2>3. 数字徽章与红点应用</h2>
+                <p class="shan_hint">红点表示“有新动静”（不显示数量），数字徽章显示具体条数，超过 99 显示 99+，两者都固定在元素右上角。</p>
+
+                <div class="shan_card">
+                    <span class="shan_card_icon">
+                        <i class="iconfont icon-weixin"></i>
+                        <span class="shan_dot"></span>
+                    </span>
+                    <span class="shan_card_text">
+                        <strong>新的私信</strong>
+                        <span>对方撤回了一条消息，请注意查收</span>
+                    </span>
+                    <span class="shan_time">刚刚</span>
+                </div>
+
+                <div class="shan_card">
+                    <span class="shan_card_icon">
+                        <i class="iconfont icon-shangcheng"></i>
+                        <em class="shan_badge">99+</em>
+                    </span>
+                    <span class="shan_card_text">
+                        <strong>购物车</strong>
+                        <span>有 100+ 件商品等待结算</span>
+                    </span>
+                    <span class="shan_time">2 分钟前</span>
+                </div>
+
+                <div class="shan_card">
+                    <span class="shan_card_icon">
+                        <i class="iconfont icon-pinglun"></i>
+                        <em class="shan_badge">6</em>
+                    </span>
+                    <span class="shan_card_text">
+                        <strong>评论回复</strong>
+                        <span>同学回复了你的课堂实践页面</span>
+                    </span>
+                    <span class="shan_time">10 分钟前</span>
+                </div>
+
+                <div class="shan_card">
+                    <span class="shan_card_icon">
+                        <i class="iconfont icon-shoucang"></i>
+                        <span class="shan_dot"></span>
+                    </span>
+                    <span class="shan_card_text">
+                        <strong>收藏夹</strong>
+                        <span>3 个网页作品被加入收藏</span>
+                    </span>
+                    <span class="shan_time">1 小时前</span>
+                </div>
+            </section>
+
+            <section class="shan_section">
+                <h2>4. 本页用到的 iconfont 图标</h2>
+                <p class="shan_hint">图标来自 <code>./font/font_5244753_5641vvib7co/</code>，字体族名 <code>iconfont</code>，用法是 <code>iconfont</code> + <code>icon-xxx</code> 两个类名。</p>
+                <div class="shan_icon_grid">
+                    <div class="shan_icon_cell"><i class="iconfont icon-shouye3"></i><code>icon-shouye3</code></div>
+                    <div class="shan_icon_cell"><i class="iconfont icon-faxian"></i><code>icon-faxian</code></div>
+                    <div class="shan_icon_cell"><i class="iconfont icon-shangcheng"></i><code>icon-shangcheng</code></div>
+                    <div class="shan_icon_cell"><i class="iconfont icon-wode"></i><code>icon-wode</code></div>
+                    <div class="shan_icon_cell"><i class="iconfont icon-sousuo"></i><code>icon-sousuo</code></div>
+                    <div class="shan_icon_cell"><i class="iconfont icon-pinglun"></i><code>icon-pinglun</code></div>
+                    <div class="shan_icon_cell"><i class="iconfont icon-shoucang"></i><code>icon-shoucang</code></div>
+                    <div class="shan_icon_cell"><i class="iconfont icon-zengjia"></i><code>icon-zengjia</code></div>
+                    <div class="shan_icon_cell"><i class="iconfont icon-gengduo"></i><code>icon-gengduo</code></div>
+                    <div class="shan_icon_cell"><i class="iconfont icon-shipin"></i><code>icon-shipin</code></div>
+                    <div class="shan_icon_cell"><i class="iconfont icon-weixin"></i><code>icon-weixin</code></div>
+                    <div class="shan_icon_cell"><i class="iconfont icon-wode1"></i><code>icon-wode1</code></div>
+                </div>
+                <p class="shan_tip">
+                    字体方式的特点：图标是字符，直接继承 <code>font-size</code> 与 <code>color</code>，一个字体文件加载后全站可用；
+                    但它只能整体换色，不能改内部线条。断网也能显示，因为 woff2 / woff / ttf 都在本地 font 目录中。
+                </p>
+            </section>
+        </main>
+
+        <nav class="shan_tabbar">
+            <a class="shan_tab shan_active" href="#">
+                <span class="shan_icon_box">
+                    <i class="iconfont icon-shouye3"></i>
+                    <span class="shan_dot"></span>
+                </span>
+                <span class="shan_label">首页</span>
+            </a>
+            <a class="shan_tab" href="#">
+                <span class="shan_icon_box">
+                    <i class="iconfont icon-faxian"></i>
+                    <em class="shan_badge">6</em>
+                </span>
+                <span class="shan_label">发现</span>
+            </a>
+            <a class="shan_tab" href="#">
+                <span class="shan_icon_box">
+                    <i class="iconfont icon-shangcheng"></i>
+                    <em class="shan_badge">99+</em>
+                </span>
+                <span class="shan_label">商城</span>
+            </a>
+            <a class="shan_tab" href="#">
+                <span class="shan_icon_box">
+                    <i class="iconfont icon-wode"></i>
+                    <em class="shan_badge">3</em>
+                </span>
+                <span class="shan_label">我的</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        var shan_tabs = document.querySelectorAll('.shan_tab');
+        shan_tabs.forEach(function (shan_tab) {
+            shan_tab.addEventListener('click', function (shan_event) {
+                shan_event.preventDefault();
+                shan_tabs.forEach(function (shan_item) {
+                    shan_item.classList.remove('shan_active');
+                });
+                shan_tab.classList.add('shan_active');
+            });
+        });
+    </script>
+</body>
+</html>

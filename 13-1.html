@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单海晟的Font Awesome字体图标</title>
+    <link rel="stylesheet" href="./cdn/fontawesome/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            font-size: 16px;
+            --shan_primary: #4361ee;
+            --shan_accent: #f8961e;
+            --shan_green: #06d6a0;
+            --shan_pink: #ef476f;
+            --shan_ink: #252a40;
+            --shan_muted: #6b7280;
+        }
+
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            margin: 0;
+            padding: 32px 20px 56px;
+            background: #f3f5fb;
+            color: var(--shan_ink);
+            font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        main {
+            width: min(100%, 1040px);
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            text-align: center;
+            font-size: 32px;
+        }
+
+        .shan_description {
+            margin: 0 0 28px;
+            color: var(--shan_muted);
+            text-align: center;
+        }
+
+        .shan_section {
+            margin-bottom: 22px;
+            padding: 22px 24px 26px;
+            background: #fff;
+            border: 1px solid #e6e9f5;
+            border-radius: 18px;
+            box-shadow: 0 8px 22px rgb(61 57 130 / 10%);
+        }
+
+        .shan_section h2 {
+            margin: 0 0 6px;
+            font-size: 20px;
+            color: var(--shan_primary);
+        }
+
+        .shan_hint {
+            margin: 0 0 18px;
+            color: var(--shan_muted);
+            font-size: 14px;
+        }
+
+        .shan_icon_grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+            gap: 12px;
+        }
+
+        .shan_icon_item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 6px 14px;
+            border: 1px dashed #d7dcf0;
+            border-radius: 14px;
+            background: #fbfcff;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .shan_icon_item:hover {
+            border-color: var(--shan_primary);
+            transform: translateY(-3px);
+        }
+
+        .shan_icon_item i {
+            font-size: 30px;
+            color: var(--shan_primary);
+        }
+
+        .shan_icon_item code {
+            padding: 2px 7px;
+            border-radius: 6px;
+            background: #eef1fb;
+            color: #303a63;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 12px;
+        }
+
+        .shan_compare {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .shan_compare_box {
+            padding: 18px;
+            border: 1px solid #e6e9f5;
+            border-radius: 14px;
+            background: #fbfcff;
+        }
+
+        .shan_compare_box h3 {
+            margin: 0 0 14px;
+            font-size: 15px;
+            color: #303a63;
+        }
+
+        .shan_compare_row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            font-size: 26px;
+            color: var(--shan_pink);
+        }
+
+        .shan_compare_row.shan_solid i {
+            color: var(--shan_pink);
+        }
+
+        .shan_compare_row.shan_regular i {
+            color: var(--shan_primary);
+        }
+
+        .shan_brand_row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .shan_brand_row i {
+            font-size: 34px;
+            color: #303a63;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .shan_brand_row i:hover {
+            color: var(--shan_primary);
+            transform: scale(1.12);
+        }
+
+        .shan_size_row {
+            display: flex;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 22px;
+            padding: 6px 0 14px;
+        }
+
+        .shan_size_demo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--shan_primary);
+        }
+
+        .shan_size_demo span {
+            color: var(--shan_muted);
+            font-size: 12px;
+            font-family: Consolas, Menlo, monospace;
+        }
+
+        .shan_text_line {
+            margin: 0;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: #f7f8fd;
+            font-size: 16px;
+        }
+
+        .shan_text_line i {
+            margin-right: 6px;
+            color: var(--shan_accent);
+        }
+
+        .shan_anim_row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 26px;
+            padding: 8px 0 4px;
+            font-size: 30px;
+        }
+
+        .shan_anim_item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--shan_green);
+        }
+
+        .shan_anim_item code {
+            color: #303a63;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 12px;
+            background: #eef1fb;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .shan_code_block {
+            margin: 0 0 14px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: #1d2440;
+            color: #d8e4ff;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .shan_code_block .shan_tag {
+            color: #7dd3fc;
+        }
+
+        .shan_code_block .shan_attr {
+            color: #fbbf24;
+        }
+
+        .shan_code_block .shan_str {
+            color: #86efac;
+        }
+
+        .shan_unit-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .shan_unit-table th,
+        .shan_unit-table td {
+            padding: 9px 10px;
+            border-bottom: 1px solid #e6e9f5;
+            text-align: left;
+        }
+
+        .shan_unit-table th {
+            background: #f7f8fd;
+            color: #303a63;
+        }
+
+        .shan_unit-table tbody tr:hover {
+            background: #fafbff;
+        }
+
+        .shan_unit-table code {
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: #eef1fb;
+            color: #303a63;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 13px;
+        }
+
+        .shan_tip {
+            margin: 18px 0 0;
+            padding: 12px 16px;
+            border-left: 4px solid var(--shan_accent);
+            border-radius: 0 10px 10px 0;
+            background: #fff9ee;
+            color: #6b5a2e;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>单海晟的 Font Awesome 字体图标</h1>
+        <p class="shan_description">字体图标（Font Icon）实现：CSS 引入本地 woff2 字体文件，用 ::before 伪元素打出符号</p>
+
+        <section class="shan_section">
+            <h2>1. 实心图标（solid）</h2>
+            <p class="shan_hint">使用 <code>fa-solid</code> + 图标名的写法，图标本质上是字体中的一个字符，因此可以像文字一样设置大小与颜色。本地字体文件位于 <code>./cdn/fontawesome/webfonts/</code>。</p>
+            <div class="shan_icon_grid">
+                <div class="shan_icon_item"><i class="fa-solid fa-house" aria-hidden="true"></i><code>fa-house</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><code>fa-magnifying-glass</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-gear" aria-hidden="true"></i><code>fa-gear</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-heart" aria-hidden="true"></i><code>fa-heart</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-star" aria-hidden="true"></i><code>fa-star</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-user" aria-hidden="true"></i><code>fa-user</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-bell" aria-hidden="true"></i><code>fa-bell</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-envelope" aria-hidden="true"></i><code>fa-envelope</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-camera" aria-hidden="true"></i><code>fa-camera</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-music" aria-hidden="true"></i><code>fa-music</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-lock" aria-hidden="true"></i><code>fa-lock</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-cloud-sun" aria-hidden="true"></i><code>fa-cloud-sun</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-palette" aria-hidden="true"></i><code>fa-palette</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-rocket" aria-hidden="true"></i><code>fa-rocket</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><code>fa-shield-halved</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-trash-can" aria-hidden="true"></i><code>fa-trash-can</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-download" aria-hidden="true"></i><code>fa-download</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-link" aria-hidden="true"></i><code>fa-link</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-eye" aria-hidden="true"></i><code>fa-eye</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><code>fa-circle-check</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i><code>fa-triangle-exclamation</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-bolt" aria-hidden="true"></i><code>fa-bolt</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-code" aria-hidden="true"></i><code>fa-code</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-terminal" aria-hidden="true"></i><code>fa-terminal</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-calendar" aria-hidden="true"></i><code>fa-calendar</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-clock" aria-hidden="true"></i><code>fa-clock</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-map-pin" aria-hidden="true"></i><code>fa-map-pin</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-sun" aria-hidden="true"></i><code>fa-sun</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-moon" aria-hidden="true"></i><code>fa-moon</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-bug" aria-hidden="true"></i><code>fa-bug</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-database" aria-hidden="true"></i><code>fa-database</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-anchor" aria-hidden="true"></i><code>fa-anchor</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-leaf" aria-hidden="true"></i><code>fa-leaf</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-fire" aria-hidden="true"></i><code>fa-fire</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-heartbeat" aria-hidden="true"></i><code>fa-heartbeat</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-cart-shopping" aria-hidden="true"></i><code>fa-cart-shopping</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-credit-card" aria-hidden="true"></i><code>fa-credit-card</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i><code>fa-chart-simple</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-layer-group" aria-hidden="true"></i><code>fa-layer-group</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-mobile-screen" aria-hidden="true"></i><code>fa-mobile-screen</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-laptop" aria-hidden="true"></i><code>fa-laptop</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-globe" aria-hidden="true"></i><code>fa-globe</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-wifi" aria-hidden="true"></i><code>fa-wifi</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-headphones" aria-hidden="true"></i><code>fa-headphones</code></div>
+                <div class="shan_icon_item"><i class="fa-solid fa-spinner" aria-hidden="true"></i><code>fa-spinner</code></div>
+            </div>
+        </section>
+
+        <section class="shan_section">
+            <h2>2. 实心与线框对比</h2>
+            <p class="shan_hint">同一个图标名可以换字体族：<code>fa-solid</code> 使用 900 字重，<code>fa-regular</code> 使用 400 字重（细线描边）。</p>
+            <div class="shan_compare">
+                <div class="shan_compare_box">
+                    <h3>fa-solid（实心，font-weight: 900）</h3>
+                    <div class="shan_compare_row shan_solid">
+                        <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <i class="fa-solid fa-bell" aria-hidden="true"></i>
+                        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                        <i class="fa-solid fa-user" aria-hidden="true"></i>
+                        <i class="fa-solid fa-circle" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="shan_compare_box">
+                    <h3>fa-regular（线框，font-weight: 400）</h3>
+                    <div class="shan_compare_row shan_regular">
+                        <i class="fa-regular fa-heart" aria-hidden="true"></i>
+                        <i class="fa-regular fa-star" aria-hidden="true"></i>
+                        <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                        <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                        <i class="fa-regular fa-user" aria-hidden="true"></i>
+                        <i class="fa-regular fa-circle" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="shan_compare_box">
+                    <h3>线框补充（regular）</h3>
+                    <div class="shan_compare_row shan_regular">
+                        <i class="fa-regular fa-comment" aria-hidden="true"></i>
+                        <i class="fa-regular fa-file" aria-hidden="true"></i>
+                        <i class="fa-regular fa-flag" aria-hidden="true"></i>
+                        <i class="fa-regular fa-bookmark" aria-hidden="true"></i>
+                        <i class="fa-regular fa-face-smile" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="shan_section">
+            <h2>3. 品牌图标（brands）</h2>
+            <p class="shan_hint">品牌类图标使用独立的字体文件 <code>fa-brands-400.woff2</code>，写法是 <code>fa-brands</code> + 品牌名。</p>
+            <div class="shan_brand_row">
+                <i class="fa-brands fa-html5" title="html5" aria-hidden="true"></i>
+                <i class="fa-brands fa-css3-alt" title="css3" aria-hidden="true"></i>
+                <i class="fa-brands fa-js" title="javascript" aria-hidden="true"></i>
+                <i class="fa-brands fa-react" title="react" aria-hidden="true"></i>
+                <i class="fa-brands fa-node-js" title="node.js" aria-hidden="true"></i>
+                <i class="fa-brands fa-git-alt" title="git" aria-hidden="true"></i>
+                <i class="fa-brands fa-github" title="github" aria-hidden="true"></i>
+                <i class="fa-brands fa-npm" title="npm" aria-hidden="true"></i>
+                <i class="fa-brands fa-python" title="python" aria-hidden="true"></i>
+                <i class="fa-brands fa-windows" title="windows" aria-hidden="true"></i>
+                <i class="fa-brands fa-android" title="android" aria-hidden="true"></i>
+                <i class="fa-brands fa-firefox" title="firefox" aria-hidden="true"></i>
+                <i class="fa-brands fa-chrome" title="chrome" aria-hidden="true"></i>
+                <i class="fa-brands fa-linkedin-in" title="linkedin" aria-hidden="true"></i>
+                <i class="fa-brands fa-weixin" title="weixin" aria-hidden="true"></i>
+                <i class="fa-brands fa-twitter" title="twitter" aria-hidden="true"></i>
+            </div>
+        </section>
+
+        <section class="shan_section">
+            <h2>4. 大小、颜色与文字混排</h2>
+            <p class="shan_hint">字体图标随 <code>font-size</code> 缩放、随 <code>color</code> 变色，也可以直接用 FA 提供的倍数类 <code>fa-2x</code> 等。</p>
+            <div class="shan_size_row">
+                <div class="shan_size_demo"><i class="fa-solid fa-heart" style="font-size: 16px;" aria-hidden="true"></i><span>16px</span></div>
+                <div class="shan_size_demo"><i class="fa-solid fa-heart" style="font-size: 24px;" aria-hidden="true"></i><span>24px</span></div>
+                <div class="shan_size_demo"><i class="fa-solid fa-heart fa-2x" aria-hidden="true"></i><span>fa-2x</span></div>
+                <div class="shan_size_demo"><i class="fa-solid fa-heart fa-3x" aria-hidden="true"></i><span>fa-3x</span></div>
+                <div class="shan_size_demo"><i class="fa-solid fa-heart" style="font-size: 56px;" aria-hidden="true"></i><span>56px</span></div>
+                <div class="shan_size_demo"><i class="fa-solid fa-heart" style="font-size: 72px; color: #ef476f;" aria-hidden="true"></i><span>72px 红色</span></div>
+            </div>
+            <div class="shan_size_row">
+                <div class="shan_size_demo" style="color: #06d6a0;"><i class="fa-solid fa-circle-check" style="color: #06d6a0;" aria-hidden="true"></i><span>#06d6a0</span></div>
+                <div class="shan_size_demo"><i class="fa-solid fa-circle-check" style="color: #4361ee;" aria-hidden="true"></i><span>#4361ee</span></div>
+                <div class="shan_size_demo"><i class="fa-solid fa-circle-check" style="color: #f8961e;" aria-hidden="true"></i><span>#f8961e</span></div>
+                <div class="shan_size_demo"><i class="fa-solid fa-circle-check" style="color: #7c3aed;" aria-hidden="true"></i><span>#7c3aed</span></div>
+                <div class="shan_size_demo"><i class="fa-solid fa-circle-check" style="color: #252a40;" aria-hidden="true"></i><span>#252a40</span></div>
+            </div>
+            <p class="shan_text_line">
+                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>图标与正文在同一行混排，会自动继承行高与基线对齐。
+                <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>把图标放进 <code>&lt;i&gt;</code> 标签即可像文字一样插入段落。
+            </p>
+        </section>
+
+        <section class="shan_section">
+            <h2>5. 动画与宽度控制</h2>
+            <p class="shan_hint">FA 内置了旋转、脉冲等动画类，以及 <code>fa-fw</code> 固定宽度对齐类。</p>
+            <div class="shan_anim_row">
+                <div class="shan_anim_item"><i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i><code>fa-spin</code></div>
+                <div class="shan_anim_item"><i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i><code>fa-spin</code></div>
+                <div class="shan_anim_item"><i class="fa-solid fa-heart fa-beat" aria-hidden="true"></i><code>fa-beat</code></div>
+                <div class="shan_anim_item"><i class="fa-solid fa-bell fa-shake" aria-hidden="true"></i><code>fa-shake</code></div>
+                <div class="shan_anim_item"><i class="fa-solid fa-star fa-fade" aria-hidden="true"></i><code>fa-fade</code></div>
+                <div class="shan_anim_item"><i class="fa-solid fa-heart fa-bounce" aria-hidden="true"></i><code>fa-bounce</code></div>
+                <div class="shan_anim_item"><i class="fa-solid fa-arrow-right fa-rotate-90" aria-hidden="true"></i><code>fa-rotate-90</code></div>
+                <div class="shan_anim_item"><i class="fa-solid fa-sync fa-spin" aria-hidden="true"></i><code>fa-sync</code></div>
+            </div>
+            <p class="shan_text_line" style="margin-top: 14px;">
+                <i class="fa-solid fa-house fa-fw" style="color: #4361ee;" aria-hidden="true"></i>首页
+                <i class="fa-solid fa-user fa-fw" style="color: #4361ee;" aria-hidden="true"></i>会员
+                <i class="fa-solid fa-gear fa-fw" style="color: #4361ee;" aria-hidden="true"></i>设置
+                &nbsp;&nbsp;<span style="color: #6b7280; font-size: 13px;">（fa-fw 让每个图标占同样的宽度，文字就能整齐对齐）</span>
+            </p>
+        </section>
+
+        <section class="shan_section">
+            <h2>6. 字体图标的工作原理</h2>
+            <p class="shan_hint">页面只需引入一条本地 CSS，浏览器会下载 <code>@font-face</code> 声明的 woff2 / ttf 字体文件，图标名对应字体中的一个编码。</p>
+            <pre class="shan_code_block"><span class="shan_tag">&lt;link</span> <span class="shan_attr">rel</span>=<span class="shan_str">"stylesheet"</span> <span class="shan_attr">href</span>=<span class="shan_str">"./cdn/fontawesome/css/all.min.css"</span><span class="shan_tag">&gt;</span>
+<span class="shan_tag">&lt;i</span> <span class="shan_attr">class</span>=<span class="shan_str">"fa-solid fa-house"</span><span class="shan_tag">&gt;&lt;/i&gt;</span>
+<span class="shan_tag">&lt;i</span> <span class="shan_attr">class</span>=<span class="shan_str">"fa-solid fa-heart fa-2x"</span> <span class="shan_attr">style</span>=<span class="shan_str">"color:#ef476f"</span><span class="shan_tag">&gt;&lt;/i&gt;</span></pre>
+            <table class="shan_unit-table">
+                <thead>
+                    <tr>
+                        <th>本地文件</th>
+                        <th>字体族 / 字重</th>
+                        <th>作用</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>cdn/fontawesome/css/all.min.css</code></td><td>—</td><td>图标类名、动画、@font-face 的样式表</td></tr>
+                    <tr><td><code>webfonts/fa-solid-900.woff2</code></td><td>Font Awesome 6 Free / 900</td><td>实心图标（fa-solid）</td></tr>
+                    <tr><td><code>webfonts/fa-regular-400.woff2</code></td><td>Font Awesome 6 Free / 400</td><td>线框图标（fa-regular）</td></tr>
+                    <tr><td><code>webfonts/fa-brands-400.woff2</code></td><td>Font Awesome 6 Brands / 400</td><td>品牌图标（fa-brands）</td></tr>
+                    <tr><td><code>webfonts/fa-v4compatibility.woff2</code></td><td>Font Awesome 4 兼容</td><td>旧版类名兼容（可选）</td></tr>
+                </tbody>
+            </table>
+            <p class="shan_tip">CSS 里真正的写法类似 <code>.fa-house::before { content: "\f015"; font-family: "Font Awesome 6 Free"; font-weight: 900; }</code> —— 图标就是一个字符，所以矢量无损、加载一次全站可用，但一次只能整体换色，不能改内部线条。</p>
+        </section>
+    </main>
+</body>
+</html>
