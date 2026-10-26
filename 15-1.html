@@ -1,0 +1,175 @@
+<!--
+姓名：单海晟
+建立时间：2026-10-26
+使用的大模型：trae
+功能名称：数7游戏 — 100个盒子按规则隐藏数字
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15-1 数7游戏</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        .shs_container {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .shs_header {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .shs_header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .shs_header p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .shs_rules {
+            background: #fff;
+            border-radius: 10px;
+            padding: 14px 20px;
+            margin-bottom: 22px;
+            font-size: 14px;
+            color: #555;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .shs_rules strong { color: #ff6b6b; }
+
+        .shs_grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 8px;
+            background: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        }
+
+        .shs_box {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            background: #fff8f0;
+            color: #ff6b35;
+            border: 1px solid #ffd4a8;
+            transition: transform 0.15s ease;
+        }
+        .shs_box:hover {
+            transform: scale(1.08);
+        }
+
+        .shs_empty {
+            background: repeating-linear-gradient(
+                45deg,
+                #e0e0e0,
+                #e0e0e0 6px,
+                #f0f0f0 6px,
+                #f0f0f0 12px
+            );
+            color: transparent;
+            border: 1px solid #ccc;
+            cursor: help;
+        }
+
+        .shs_stats {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+        .shs_stats span {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 6px 14px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+        .shs_stats em {
+            font-style: normal;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <div class="shs_container">
+        <div class="shs_header">
+            <h1>🎲 数7游戏</h1>
+            <p>1 ~ 100 共 100 个盒子，遇到"数7"规则请踩空！</p>
+        </div>
+
+        <div class="shs_rules">
+            <strong>规则：</strong>
+            满足以下<strong>任一</strong>条件的数字显示为空盒子 ——
+            ① 7 的倍数（7, 14, 21, …）
+            ② 个位数为 7（7, 17, 27, …, 97）
+            ③ 十位数为 7（70 ~ 79）
+        </div>
+
+        <div class="shs_grid" id="shs_grid">
+            <!-- 盒子由 JS 生成 -->
+        </div>
+
+        <div class="shs_stats">
+            <span>总盒子数：<em id="shs_total">0</em></span>
+            <span>显示数字：<em id="shs_show">0</em></span>
+            <span>踩空隐藏：<em id="shs_hide">0</em></span>
+        </div>
+    </div>
+
+    <script>
+        // 判断是否"踩空"：7的倍数 / 个位含7 / 十位含7
+        function shs_isDizhi(n) {
+            var shs_ge = n % 10;           // 个位数
+            var shs_shi = Math.floor(n / 10); // 十位数
+            return (n % 7 === 0)         // 条件①：7的倍数
+                || (shs_ge === 7)        // 条件②：个位为7
+                || (shs_shi === 7);      // 条件③：十位为7
+        }
+
+        var shs_grid = document.getElementById("shs_grid");
+        var shs_hideCount = 0;
+
+        for (var i = 1; i <= 100; i++) {
+            var shs_box = document.createElement("div");
+            shs_box.className = "shs_box";
+
+            if (shs_isDizhi(i)) {
+                shs_box.classList.add("shs_empty");
+                shs_box.title = i + " （踩空！7的倍数或含数字7）";
+                shs_hideCount++;
+            } else {
+                shs_box.textContent = i;
+            }
+
+            shs_grid.appendChild(shs_box);
+        }
+
+        // 统计
+        document.getElementById("shs_total").textContent = 100;
+        document.getElementById("shs_hide").textContent = shs_hideCount;
+        document.getElementById("shs_show").textContent = 100 - shs_hideCount;
+    </script>
+</body>
+</html>

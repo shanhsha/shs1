@@ -28,12 +28,13 @@ verify a change, open the `.html` file directly in a browser.
   `shs_title`). JavaScript is currently absent, but apply the prefix to any that is added.
   （历史文件中的 `shan_` 前缀暂不批量替换，仅新增/修改时使用 `shs_`。）
 - **Every `.html` file must include a top-of-file comment block** in Chinese, recording:
-  姓名（固定为"单海晟"）、日期（YYYY-MM-DD）、功能名称（页面用途简述）。格式示例：
+  姓名（固定为"单海晟"）、建立时间（YYYY-MM-DD）、使用的大模型（如"trae"）、功能名称（页面用途简述）。格式示例：
   ```html
   <!--
   姓名：单海晟
-  日期：2026-10-22
-  功能名称：Font Awesome 字体图标演示
+  建立时间：2026-10-26
+  使用的大模型：trae
+  功能名称：数7游戏 — 100个盒子按规则隐藏数字
   -->
   ```
 - **Before executing any prompt/task, append it to `shan_prompt.md`** — append only, never
