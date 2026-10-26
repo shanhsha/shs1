@@ -138,3 +138,17 @@
 
 > 上传到github
 
+## 2026-10-26 15:40:00 +08:00
+
+- 使用模型: trae
+- 提示词内容:
+
+> 创建技能skill：提交到github，commit和push整个项目到 `https://github.com/shanhsha/shs1.git`
+
+## 2026-10-26 15:45:00 +08:00
+
+- 使用模型: trae
+- 提示词内容:
+
+> 我仓库和公钥都已经好了把代码上传到github
+
