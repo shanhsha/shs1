@@ -1,0 +1,441 @@
+/* ============================================================
+   高级网页设计I · 网页元素设计
+   学号：24001010307   姓名：单海晟
+   类名前缀：mt-shs-（Meituan + Shan HaiSheng）
+   ============================================================ */
+
+/* ---------- 全局 CSS：美团视觉 token ---------- */
+:root {
+  --mt-yellow:       #FFC300;
+  --mt-yellow-tint:  #FFF8E0;
+  --mt-price:        #FF4B10;
+  --mt-ground:       #F5F5F5;
+  --mt-card:         #FFFFFF;
+  --mt-text:         #222222;
+  --mt-text-2:       #888888;
+  --mt-border:       #EEEEEE;
+  --mt-radius-card:  8px;
+  --mt-radius-pill:  20px;
+  --mt-shadow:       0 1px 3px rgba(0, 0, 0, .04);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body.mt-shs-body {
+  margin: 0;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--mt-text);
+  background: var(--mt-ground);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ============================================================
+   元素一：顶部导航 + 搜索区（一左一右）
+   ============================================================ */
+.mt-shs-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--mt-yellow);
+}
+
+.mt-shs-header-inner {
+  display: flex;                       /* 一左一右的核心 */
+  align-items: center;
+  justify-content: space-between;      /* 左区、搜索、右区分散两端 */
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+.mt-shs-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.mt-shs-logo {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--mt-text);
+}
+
+.mt-shs-city {
+  font-size: 13px;
+  color: var(--mt-text);
+  opacity: .8;
+}
+
+/* 搜索区：flex: 1 吃掉中间剩余空间 */
+.mt-shs-search {
+  display: flex;
+  flex: 1;
+  max-width: 480px;
+  background: var(--mt-card);
+  border-radius: var(--mt-radius-pill);
+  overflow: hidden;
+}
+
+.mt-shs-search-input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  padding: 9px 18px;
+  font-size: 14px;
+  color: var(--mt-text);
+  background: transparent;
+}
+
+.mt-shs-search-input::placeholder {
+  color: #BBBBBB;
+}
+
+.mt-shs-search-btn {
+  border: 0;
+  padding: 0 22px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mt-text);
+  background: var(--mt-yellow);
+  cursor: pointer;
+}
+
+.mt-shs-search-btn:hover {
+  background: #F5B800;
+}
+
+.mt-shs-header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.mt-shs-register {
+  padding: 5px 14px;
+  border: 1px solid rgba(34, 34, 34, .35);
+  border-radius: var(--mt-radius-card);
+}
+
+/* 分类导航横排 */
+.mt-shs-nav {
+  background: var(--mt-card);
+  border-bottom: 1px solid var(--mt-border);
+}
+
+.mt-shs-nav-list {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  overflow-x: auto;                    /* 小屏可横向滑动 */
+}
+
+.mt-shs-nav-item a {
+  white-space: nowrap;
+  font-size: 15px;
+  font-weight: 500;
+  padding-bottom: 4px;
+}
+
+.mt-shs-nav-item a:hover {
+  color: var(--mt-price);
+  border-bottom: 2px solid var(--mt-price);
+}
+
+/* ============================================================
+   新增：美团金刚区（宫格导航） —— Grid 布局
+   ============================================================ */
+.mt-shs-category {
+  background: var(--mt-card);
+  padding: 20px 0;
+  margin-bottom: 20px;
+}
+
+.mt-shs-category-list {
+  display: grid;
+  /* 核心：分成 5 等份列，自动换行 */
+  grid-template-columns: repeat(5, 1fr); 
+  row-gap: 20px; /* 行间距 */
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.mt-shs-category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+/* 鼠标悬浮时图标轻微放大，增加交互感 */
+.mt-shs-category-item:hover {
+  transform: translateY(-2px);
+}
+
+/* 👇 这里是加上了薄荷绿背景的图标样式 👇 */
+.mt-shs-category-icon {
+  width: 48px;  /* 图标宽度 */
+  height: 48px; /* 图标高度 */
+  margin-bottom: 8px;
+  object-fit: contain; /* 保证图标完整显示不拉伸 */
+  
+  background-color: #D4F1F4; /* 柔和的薄荷绿背景 */
+  border-radius: 50%;        /* 变成圆形 */
+  padding: 10px;             /* 让白色图标离边缘有距离，不贴边 */
+}
+
+.mt-shs-category-name {
+  font-size: 13px;
+  color: var(--mt-text);
+  font-weight: 400;
+}
+
+/* ============================================================
+   元素二：商家推荐卡片（上图下文）
+   ============================================================ */
+.mt-shs-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.mt-shs-section {
+  margin-bottom: 28px;
+}
+
+.mt-shs-section-title {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* 卡片本体：上图 + 下文 */
+.mt-shs-card {
+  display: flex;
+  flex-direction: column;             /* 纵向：上图在上，下文在下 */
+  max-width: 380px;
+  background: var(--mt-card);
+  border-radius: var(--mt-radius-card);
+  overflow: hidden;
+  box-shadow: var(--mt-shadow);
+}
+
+/* 上图 */
+.mt-shs-card-img-wrap {
+  position: relative;                 /* 父元素非 static，供角标 absolute 使用 */
+}
+
+.mt-shs-card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.mt-shs-card-badge {
+  position: absolute;                 /* 绝对定位，父元素已设 relative */
+  top: 10px;
+  left: 10px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--mt-text);
+  background: var(--mt-yellow);
+  border-radius: 4px;
+}
+
+/* 下文 */
+.mt-shs-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px 14px;
+}
+
+.mt-shs-card-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;            /* 单行省略号三属性齐用 */
+}
+
+.mt-shs-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--mt-text-2);
+}
+
+.mt-shs-rating {
+  color: #FFB000;
+  font-weight: 600;
+}
+
+.mt-shs-card-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.mt-shs-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--mt-price);
+}
+
+.mt-shs-price-suffix {
+  font-size: 12px;
+  color: var(--mt-text-2);
+}
+
+.mt-shs-coupon {
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--mt-price);
+  background: var(--mt-yellow-tint);
+  border: 1px solid #FFE0B2;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   元素三：猜你喜欢商家列表（Grid 列表）
+   ============================================================ */
+.mt-shs-merchant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.mt-shs-merchant-item {
+  display: flex;
+  flex-direction: column;
+  background: var(--mt-card);
+  border-radius: var(--mt-radius-card);
+  overflow: hidden;
+  box-shadow: var(--mt-shadow);
+}
+
+.mt-shs-merchant-thumb img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.mt-shs-merchant-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px 12px;
+}
+
+.mt-shs-merchant-name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mt-shs-merchant-rating {
+  margin: 0;
+  font-size: 13px;
+  color: var(--mt-text-2);
+}
+
+.mt-shs-merchant-price {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--mt-price);
+}
+
+/* ============================================================
+   响应式：小屏适配
+   ============================================================ */
+@media (max-width: 768px) {
+  .mt-shs-header-inner {
+    flex-wrap: wrap;                  /* flex 容器多行显示 */
+    gap: 8px;
+  }
+
+  .mt-shs-search {
+    order: 3;                         /* 搜索框换到第二行 */
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .mt-shs-header-right {
+    margin-left: auto;
+  }
+
+  .mt-shs-nav-list {
+    justify-content: flex-start;
+    gap: 22px;
+  }
+
+  .mt-shs-main {
+    padding: 14px;
+  }
+
+  .mt-shs-card {
+    max-width: none;                  /* 小屏卡片占满宽度 */
+  }
+
+  .mt-shs-merchant-grid {
+    grid-template-columns: 1fr;       /* 小屏单列 */
+  }
+
+  /* 金刚区小屏适配 */
+  .mt-shs-category-list {
+    grid-template-columns: repeat(5, 1fr); /* 手机端保持5列，图标缩小 */
+    row-gap: 16px;
+  }
+  
+  /* 小屏下图标尺寸缩小，内边距也相应调整 */
+  .mt-shs-category-icon {
+    width: 40px;
+    height: 40px;
+    padding: 8px; 
+  }
+  
+  .mt-shs-category-name {
+    font-size: 12px;
+  }
+}

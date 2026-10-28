@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<!--
+  高级网页设计I · 网页元素设计
+  学号：24001010307
+  姓名：单海晟
+  类名前缀：mt-shs-（美团 Meituan + 单海晟 Shan HaiSheng）
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>美团 — 网页元素设计（24001010307 单海晟）</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="mt-shs-body">
+
+  <!-- ========== 元素一：顶部导航 + 搜索区（一左一右） ========== -->
+  <header class="mt-shs-header">
+    <div class="mt-shs-header-inner">
+
+      <!-- 左区：Logo + 城市 -->
+      <div class="mt-shs-header-left">
+        <a href="#" class="mt-shs-logo">美团</a>
+        <span class="mt-shs-city">大连 ▾</span>
+      </div>
+
+      <!-- 中区：搜索框（占据剩余空间） -->
+      <div class="mt-shs-search">
+        <input type="text" class="mt-shs-search-input"
+               placeholder="搜索商家、商品、地址">
+        <button class="mt-shs-search-btn">搜索</button>
+      </div>
+
+      <!-- 右区：登录/注册（一左一右的“右”） -->
+      <nav class="mt-shs-header-right">
+        <a href="#" class="mt-shs-login">登录</a>
+        <a href="#" class="mt-shs-register">注册</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- 分类导航横排（列表结构，Flex 横向排列） -->
+  <nav class="mt-shs-nav">
+    <ul class="mt-shs-nav-list">
+      <li class="mt-shs-nav-item"><a href="#">美食</a></li>
+      <li class="mt-shs-nav-item"><a href="#">电影</a></li>
+      <li class="mt-shs-nav-item"><a href="#">酒店</a></li>
+      <li class="mt-shs-nav-item"><a href="#">旅游</a></li>
+      <li class="mt-shs-nav-item"><a href="#">外卖</a></li>
+      <li class="mt-shs-nav-item"><a href="#">生鲜</a></li>
+    </ul>
+  </nav>
+
+  <!-- ========== 美团金刚区（宫格导航）- 使用本地图片 ========== -->
+  <section class="mt-shs-category">
+    <ul class="mt-shs-category-list">
+      <!-- 第 1 行 -->
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/a.png" alt="外卖">
+        <span class="mt-shs-category-name">外卖</span>
+      </li>
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/n.png" alt="团购">
+        <span class="mt-shs-category-name">团购</span>
+      </li>
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/g.png" alt="酒店/旅行">
+        <span class="mt-shs-category-name">酒店/旅行</span>
+      </li>
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/d.png" alt="闪购">
+        <span class="mt-shs-category-name">闪购</span>
+      </li>
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/c.png" alt="看病买药">
+        <span class="mt-shs-category-name">看病买药</span>
+      </li>
+
+      <!-- 第 2 行 -->
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/h.png" alt="美食">
+        <span class="mt-shs-category-name">美食</span>
+      </li>
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/o.png" alt="休闲玩乐">
+        <span class="mt-shs-category-name">休闲玩乐</span>
+      </li>
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/j.png" alt="跑腿">
+        <span class="mt-shs-category-name">跑腿</span>
+      </li>
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/i.png" alt="拼好饭">
+        <span class="mt-shs-category-name">拼好饭</span>
+      </li>
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/e.png" alt="电影演出">
+        <span class="mt-shs-category-name">电影演出</span>
+      </li>
+
+      <!-- 第 3 行 -->
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/b.png" alt="打车">
+        <span class="mt-shs-category-name">打车</span>
+      </li>
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/l.png" alt="蔬菜水果">
+        <span class="mt-shs-category-name">蔬菜水果</span>
+      </li>
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/k.png" alt="手机家电">
+        <span class="mt-shs-category-name">手机家电</span>
+      </li>
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/m.png" alt="免费水果">
+        <span class="mt-shs-category-name">免费水果</span>
+      </li>
+      <li class="mt-shs-category-item">
+        <img class="mt-shs-category-icon" src="img/f.png" alt="更多服务">
+        <span class="mt-shs-category-name">更多服务</span>
+      </li>
+    </ul>
+  </section>
+
+  <main class="mt-shs-main">
+
+    <!-- ========== 元素二：商家推荐卡片（上图下文） ========== -->
+    <section class="mt-shs-section">
+      <h2 class="mt-shs-section-title">今日推荐</h2>
+
+      <article class="mt-shs-card">
+        <!-- 上图：使用你 img 文件夹里的 1.jpg -->
+        <div class="mt-shs-card-img-wrap">
+          <img class="mt-shs-card-img"
+               src="img/aa.png"
+               alt="商家门店图片">
+          <span class="mt-shs-card-badge">品牌商家</span>
+        </div>
+        <!-- 下文 -->
+        <div class="mt-shs-card-body">
+          <h3 class="mt-shs-card-name">老王家常菜·东北菜（软件园店）</h3>
+          <div class="mt-shs-card-meta">
+            <span class="mt-shs-rating">★ 4.8</span>
+            <span class="mt-shs-sold">月售 1200+</span>
+            <span class="mt-shs-distance">1.2km</span>
+          </div>
+          <div class="mt-shs-card-price-row">
+            <span class="mt-shs-price">¥ 28</span>
+            <span class="mt-shs-price-suffix">起送</span>
+            <span class="mt-shs-coupon">满 30 减 5</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ========== 元素三：猜你喜欢商家列表（Grid 列表） ========== -->
+    <section class="mt-shs-section">
+      <h2 class="mt-shs-section-title">猜你喜欢</h2>
+
+      <div class="mt-shs-merchant-grid">
+
+        <article class="mt-shs-merchant-item">
+          <div class="mt-shs-merchant-thumb">
+            <img src="img/cc.png" alt="商家图">
+          </div>
+          <div class="mt-shs-merchant-info">
+            <h3 class="mt-shs-merchant-name">小厨娘·家常小炒</h3>
+            <p class="mt-shs-merchant-rating">★ 4.6 · 月售 800+</p>
+            <p class="mt-shs-merchant-price">人均 ¥ 22</p>
+          </div>
+        </article>
+
+        <article class="mt-shs-merchant-item">
+          <div class="mt-shs-merchant-thumb">
+            <img src="img/bb.png" alt="商家图">
+          </div>
+          <div class="mt-shs-merchant-info">
+            <h3 class="mt-shs-merchant-name">首尔炸鸡·啤酒屋</h3>
+            <p class="mt-shs-merchant-rating">★ 4.7 · 月售 1500+</p>
+            <p class="mt-shs-merchant-price">人均 ¥ 35</p>
+          </div>
+        </article>
+
+        <article class="mt-shs-merchant-item">
+          <div class="mt-shs-merchant-thumb">
+            <img src="img/dd.png" alt="商家图">
+          </div>
+          <div class="mt-shs-merchant-info">
+            <h3 class="mt-shs-merchant-name">蜀香冒菜·一人食</h3>
+            <p class="mt-shs-merchant-rating">★ 4.5 · 月售 600+</p>
+            <p class="mt-shs-merchant-price">人均 ¥ 18</p>
+          </div>
+        </article>
+
+        <article class="mt-shs-merchant-item">
+          <div class="mt-shs-merchant-thumb">
+            <img src="img/ee.png" alt="商家图">
+          </div>
+          <div class="mt-shs-merchant-info">
+            <h3 class="mt-shs-merchant-name">鲜果切·水果捞</h3>
+            <p class="mt-shs-merchant-rating">★ 4.9 · 月售 2000+</p>
+            <p class="mt-shs-merchant-price">人均 ¥ 15</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
