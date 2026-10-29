@@ -1,0 +1,687 @@
+<!--
+姓名：单海晟
+建立时间：2026-10-29
+使用的大模型：trae
+功能名称：JavaScript 数组主要方法可视化演示 — 彩色方块 + 按钮交互 + 代码即时展示
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16-1 JavaScript 数组方法</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 30px 20px 60px;
+        }
+
+        .shs_container {
+            max-width: 1060px;
+            margin: 0 auto;
+        }
+
+        /* 头部 */
+        .shs_header {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 28px;
+        }
+        .shs_header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+            letter-spacing: 2px;
+        }
+        .shs_header p {
+            font-size: 15px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* 控制面板 */
+        .shs_panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 18px;
+            padding: 24px 28px;
+            box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+            margin-bottom: 24px;
+        }
+        .shs_panel-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .shs_panel-title::before {
+            content: "";
+            width: 4px;
+            height: 18px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        /* 数组舞台 */
+        .shs_stage-wrap {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .shs_stage {
+            flex: 1 1 360px;
+            min-height: 160px;
+            background: linear-gradient(180deg, #f8f9ff, #eef0ff);
+            border: 2px dashed #b8bfe0;
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 10px;
+        }
+        .shs_stage-label {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 8px;
+            width: 100%;
+        }
+
+        .shs_elem {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: #fff;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.35s cubic-bezier(.34,1.56,.64,1),
+                        opacity 0.25s ease,
+                        box-shadow 0.25s ease;
+            cursor: default;
+        }
+        .shs_elem .shs_idx {
+            position: absolute;
+            bottom: -18px;
+            font-size: 11px;
+            color: #888;
+            font-weight: normal;
+        }
+        .shs_elem.shs_new {
+            animation: shs_pop 0.5s cubic-bezier(.34,1.56,.64,1);
+        }
+        .shs_elem.shs_remove {
+            animation: shs_fadeOut 0.4s ease forwards;
+        }
+        .shs_elem.shs_highlight {
+            box-shadow: 0 0 0 4px rgba(255,215,0,0.7), 0 6px 16px rgba(0,0,0,0.25);
+            transform: scale(1.12);
+        }
+        @keyframes shs_pop {
+            0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+            60%  { transform: scale(1.2) rotate(5deg); }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+        @keyframes shs_fadeOut {
+            to { transform: scale(0) rotate(20deg); opacity: 0; }
+        }
+
+        /* 代码显示 */
+        .shs_code {
+            flex: 0 0 280px;
+            background: #1e1e3a;
+            border-radius: 14px;
+            padding: 18px 20px;
+            color: #d4d4ff;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+            min-height: 160px;
+        }
+        .shs_code .shs_comment { color: #6a9955; }
+        .shs_code .shs_kw { color: #c586c0; }
+        .shs_code .shs_str { color: #ce9178; }
+        .shs_code .shs_num { color: #b5cea8; }
+        .shs_code .shs_func { color: #dcdcaa; }
+        .shs_code .shs_result {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(255,255,255,0.15);
+            color: #4ec9b0;
+        }
+        .shs_code-label {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        /* 输入行 */
+        .shs_input-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .shs_input-row input {
+            flex: 1 1 120px;
+            padding: 10px 14px;
+            border: 2px solid #e0e0ee;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        .shs_input-row input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* 方法分类 */
+        .shs_group {
+            margin-bottom: 20px;
+        }
+        .shs_group-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #f0e8ff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .shs_group-title .shs_badge {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #ede4ff;
+            color: #764ba2;
+            font-weight: normal;
+        }
+        .shs_group-title .shs_badge.shs_danger { background: #ffe4e4; color: #d94a4a; }
+        .shs_group-title .shs_badge.shs_safe { background: #e4fff1; color: #2a9d6c; }
+
+        .shs_btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .shs_btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            cursor: pointer;
+            color: #fff;
+            font-weight: bold;
+            transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+            position: relative;
+            overflow: hidden;
+        }
+        .shs_btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            filter: brightness(1.08);
+        }
+        .shs_btn:active { transform: translateY(0); }
+        .shs_btn .shs_small {
+            display: block;
+            font-size: 11px;
+            font-weight: normal;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+
+        /* 按钮配色 */
+        .shs_btn.shs_push   { background: linear-gradient(135deg, #43cea2, #185a9d); }
+        .shs_btn.shs_pop    { background: linear-gradient(135deg, #ff6b6b, #c0392b); }
+        .shs_btn.shs_shift  { background: linear-gradient(135deg, #ee5a6f, #a0295a); }
+        .shs_btn.shs_unshift{ background: linear-gradient(135deg, #38ef7d, #11998e); }
+        .shs_btn.shs_splice { background: linear-gradient(135deg, #fc4a1a, #f7b733); }
+        .shs_btn.shs_sort   { background: linear-gradient(135deg, #a18cd1, #fbc2eb); color: #333; }
+        .shs_btn.shs_reverse{ background: linear-gradient(135deg, #f7971e, #ffd200); color: #333; }
+
+        .shs_btn.shs_slice  { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .shs_btn.shs_concat { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #333; }
+        .shs_btn.shs_index  { background: linear-gradient(135deg, #56ab2f, #a8e063); color: #333; }
+        .shs_btn.shs_include{ background: linear-gradient(135deg, #00b09b, #96c93d); color: #333; }
+        .shs_btn.shs_join   { background: linear-gradient(135deg, #ff9966, #ff5e62); }
+
+        .shs_btn.shs_forEach{ background: linear-gradient(135deg, #8E2DE2, #4A00E0); }
+        .shs_btn.shs_map    { background: linear-gradient(135deg, #00c6ff, #0072ff); }
+        .shs_btn.shs_filter { background: linear-gradient(135deg, #11998e, #38ef7d); }
+        .shs_btn.shs_reduce { background: linear-gradient(135deg, #eb3349, #f45c43); }
+
+        .shs_btn.shs_reset  { background: #6c757d; }
+
+        /* 输出区 */
+        .shs_log {
+            background: #fff;
+            border-radius: 14px;
+            padding: 18px 22px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 13px;
+            color: #444;
+            line-height: 1.8;
+        }
+        .shs_log::-webkit-scrollbar { width: 8px; }
+        .shs_log::-webkit-scrollbar-thumb {
+            background: linear-gradient(#667eea, #764ba2);
+            border-radius: 4px;
+        }
+        .shs_log-title {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 6px;
+        }
+        .shs_log-item {
+            padding: 4px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        .shs_log-item:last-child { border-bottom: none; }
+        .shs_log-item .shs_tag {
+            display: inline-block;
+            font-size: 11px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            background: #ede4ff;
+            color: #764ba2;
+            margin-right: 6px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 720px) {
+            .shs_header h1 { font-size: 24px; }
+            .shs_code { flex: 1 1 100%; }
+            .shs_stage-wrap { flex-direction: column; }
+            .shs_elem { width: 48px; height: 48px; font-size: 17px; }
+            .shs_btn { padding: 9px 14px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="shs_container">
+        <div class="shs_header">
+            <h1>📦 JavaScript 数组方法可视化</h1>
+            <p>彩色方块代表数组元素，点击按钮观察每个方法如何"舞台表演" — 增删改查，一目了然！</p>
+        </div>
+
+        <!-- 舞台 + 代码 -->
+        <div class="shs_panel">
+            <div class="shs_panel-title">🎭 数组舞台</div>
+            <div class="shs_stage-wrap">
+                <div style="flex:1">
+                    <div class="shs_stage-label">当前数组 →</div>
+                    <div class="shs_stage" id="shs_stage">
+                        <!-- 元素由 JS 生成 -->
+                    </div>
+                </div>
+                <div>
+                    <div class="shs_code-label">💻 代码 & 返回值</div>
+                    <div class="shs_code" id="shs_code">
+<span class="shs_comment">// 点击下方按钮试试看</span>
+<span class="shs_kw">const</span> arr = <span class="shs_num">[3, 7, 12, 5, 9, 1]</span>;
+<span class="shs_comment">// ↑ 初始数组</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 增删改方法 -->
+        <div class="shs_panel">
+            <div class="shs_panel-title">🔧 修改原数组的方法（直接改数组本身）</div>
+            <div class="shs_group">
+                <div class="shs_group-title">
+                    头部 / 尾部增删
+                    <span class="shs_badge shs_danger">原数组变化</span>
+                </div>
+                <div class="shs_btns">
+                    <button class="shs_btn shs_push"   onclick="shs_do('push')">push()<span class="shs_small">尾部加元素</span></button>
+                    <button class="shs_btn shs_pop"    onclick="shs_do('pop')">pop()<span class="shs_small">尾部删一个</span></button>
+                    <button class="shs_btn shs_unshift"onclick="shs_do('unshift')">unshift()<span class="shs_small">头部加元素</span></button>
+                    <button class="shs_btn shs_shift"  onclick="shs_do('shift')">shift()<span class="shs_small">头部删一个</span></button>
+                </div>
+            </div>
+
+            <div class="shs_group">
+                <div class="shs_group-title">
+                    任意位置 & 排序
+                    <span class="shs_badge shs_danger">原数组变化</span>
+                </div>
+                <div class="shs_btns">
+                    <button class="shs_btn shs_splice" onclick="shs_do('splice')">splice()<span class="shs_small">插入/删除/替换</span></button>
+                    <button class="shs_btn shs_sort"   onclick="shs_do('sort')">sort()<span class="shs_small">从小到大</span></button>
+                    <button class="shs_btn shs_reverse"onclick="shs_do('reverse')">reverse()<span class="shs_small">前后反转</span></button>
+                    <button class="shs_btn shs_reset"  onclick="shs_do('reset')">🔄 重置数组<span class="shs_small">回到初始</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 不改变原数组 -->
+        <div class="shs_panel">
+            <div class="shs_panel-title">🔍 只读方法（不修改原数组，返回新值）</div>
+            <div class="shs_group">
+                <div class="shs_group-title">
+                    截取 / 合并 / 查找
+                    <span class="shs_badge shs_safe">原数组不变</span>
+                </div>
+                <div class="shs_btns">
+                    <button class="shs_btn shs_slice"   onclick="shs_do('slice')">slice(1,4)<span class="shs_small">截取下标1~3</span></button>
+                    <button class="shs_btn shs_concat"  onclick="shs_do('concat')">concat([99])<span class="shs_small">拼接新数组</span></button>
+                    <button class="shs_btn shs_index"   onclick="shs_do('indexOf')">indexOf(7)<span class="shs_small">找7的下标</span></button>
+                    <button class="shs_btn shs_include" onclick="shs_do('includes')">includes(5)<span class="shs_small">是否含5</span></button>
+                    <button class="shs_btn shs_join"    onclick="shs_do('join')">join(" - ")<span class="shs_small">用 - 连接</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 遍历方法 -->
+        <div class="shs_panel">
+            <div class="shs_panel-title">🌀 遍历方法（对每个元素做点事）</div>
+            <div class="shs_group">
+                <div class="shs_btns">
+                    <button class="shs_btn shs_forEach" onclick="shs_do('forEach')">forEach()<span class="shs_small">遍历并打印</span></button>
+                    <button class="shs_btn shs_map"     onclick="shs_do('map')">map(x=>x*2)<span class="shs_small">每个元素翻倍</span></button>
+                    <button class="shs_btn shs_filter"  onclick="shs_do('filter')">filter(x=>x>5)<span class="shs_small">筛选大于5</span></button>
+                    <button class="shs_btn shs_reduce"  onclick="shs_do('reduce')">reduce求和<span class="shs_small">所有元素相加</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 日志输出 -->
+        <div class="shs_panel">
+            <div class="shs_panel-title">📝 操作日志</div>
+            <div class="shs_log" id="shs_log"></div>
+        </div>
+    </div>
+
+    <script>
+        // ===== 状态 =====
+        var shs_INITIAL = [3, 7, 12, 5, 9, 1];
+        var shs_arr = shs_INITIAL.slice();  // 当前数组
+        var shs_newVal = 20;                // splice/push 用到的新元素
+
+        // ===== 颜色池（循环取色） =====
+        var shs_COLORS = [
+            "#e74c3c", "#3498db", "#2ecc71", "#f39c12", "#9b59b6",
+            "#1abc9c", "#e67e22", "#34495e", "#16a085", "#c0392b",
+            "#2980b9", "#8e44ad"
+        ];
+        function shs_getColor(idx) {
+            return shs_COLORS[idx % shs_COLORS.length];
+        }
+
+        // ===== 渲染舞台 =====
+        function shs_render(highlightIndices) {
+            var stage = document.getElementById("shs_stage");
+            stage.innerHTML = "";
+            for (var i = 0; i < shs_arr.length; i++) {
+                var el = document.createElement("div");
+                el.className = "shs_elem";
+                el.style.background = shs_getColor(i);
+                el.textContent = shs_arr[i];
+
+                var idx = document.createElement("span");
+                idx.className = "shs_idx";
+                idx.textContent = "[" + i + "]";
+                el.appendChild(idx);
+
+                if (highlightIndices && highlightIndices.indexOf(i) !== -1) {
+                    el.classList.add("shs_new");
+                }
+                stage.appendChild(el);
+            }
+            if (shs_arr.length === 0) {
+                stage.innerHTML = '<span style="color:#aaa;padding:20px;">（空数组 — 试试 reset 或 push/unshift）</span>';
+            }
+        }
+
+        // ===== 代码显示 =====
+        function shs_showCode(codeHTML, resultHTML) {
+            var box = document.getElementById("shs_code");
+            box.innerHTML = codeHTML +
+                '<div class="shs_result">⬇ 返回值：<span id="shs_ret"></span></div>';
+            document.getElementById("shs_ret").innerHTML = resultHTML;
+        }
+
+        // ===== 日志 =====
+        function shs_log(msg) {
+            var box = document.getElementById("shs_log");
+            var item = document.createElement("div");
+            item.className = "shs_log-item";
+            var t = new Date().toLocaleTimeString();
+            item.innerHTML = '<span class="shs_tag">' + t + '</span>' + msg;
+            box.insertBefore(item, box.firstChild);
+        }
+
+        // ===== 动画延迟工具 =====
+        function shs_delay(ms) {
+            return new Promise(function(resolve) { setTimeout(resolve, ms); });
+        }
+
+        // ===== 核心方法调度 =====
+        async function shs_do(name) {
+            var before = shs_arr.slice();
+            var result;
+
+            switch (name) {
+
+            case "reset":
+                shs_arr = shs_INITIAL.slice();
+                shs_newVal = 20;
+                shs_showCode(
+                    '<span class="shs_comment">// 重置数组</span>\n' +
+                    '<span class="shs_kw">const</span> arr = ' + shs_arr.join(", ") + ';',
+                    '<span style="color:#dcdcaa">arr 已恢复</span>'
+                );
+                shs_log('<b>重置</b> → 数组恢复为 [' + shs_arr.join(", ") + ']');
+                shs_render();
+                break;
+
+            case "push":
+                result = shs_arr.push(shs_newVal);
+                shs_showCode(
+                    '<span class="shs_kw">const</span> len = arr.<span class="shs_func">push</span>(' + shs_newVal + ');',
+                    '<span class="shs_num">' + result + '</span> （新长度）'
+                );
+                shs_log('<b>push(' + shs_newVal + ')</b> → 返回 ' + result + '，数组变为 [' + shs_arr.join(", ") + ']');
+                shs_render([shs_arr.length - 1]);
+                shs_newVal += 11;
+                break;
+
+            case "pop":
+                if (shs_arr.length === 0) { shs_log('数组已空，pop 无效'); return; }
+                var popped = shs_arr.pop();
+                shs_showCode(
+                    '<span class="shs_kw">const</span> last = arr.<span class="shs_func">pop</span>();',
+                    '<span class="shs_num">' + popped + '</span>'
+                );
+                shs_log('<b>pop()</b> → 弹出 ' + popped + '，数组变为 [' + shs_arr.join(", ") + ']');
+                shs_render();
+                break;
+
+            case "unshift":
+                result = shs_arr.unshift(shs_newVal);
+                shs_showCode(
+                    '<span class="shs_kw">const</span> len = arr.<span class="shs_func">unshift</span>(' + shs_newVal + ');',
+                    '<span class="shs_num">' + result + '</span> （新长度）'
+                );
+                shs_log('<b>unshift(' + shs_newVal + ')</b> → 返回 ' + result + '，数组变为 [' + shs_arr.join(", ") + ']');
+                shs_render([0]);
+                shs_newVal += 11;
+                break;
+
+            case "shift":
+                if (shs_arr.length === 0) { shs_log('数组已空，shift 无效'); return; }
+                var shifted = shs_arr.shift();
+                shs_showCode(
+                    '<span class="shs_kw">const</span> first = arr.<span class="shs_func">shift</span>();',
+                    '<span class="shs_num">' + shifted + '</span>'
+                );
+                shs_log('<b>shift()</b> → 移出 ' + shifted + '，数组变为 [' + shs_arr.join(", ") + ']');
+                shs_render();
+                break;
+
+            case "splice":
+                // 在中间位置插入一个元素：从下标2开始，删0个，插一个
+                var at = Math.min(2, shs_arr.length);
+                result = shs_arr.splice(at, 0, shs_newVal);
+                shs_showCode(
+                    '<span class="shs_kw">const</span> removed = arr.<span class="shs_func">splice</span>(' + at + ', 0, ' + shs_newVal + ');',
+                    '<span class="shs_str">[]</span>（空数组，因为没删除）'
+                );
+                shs_log('<b>splice(' + at + ', 0, ' + shs_newVal + ')</b> → 在位置 ' + at + ' 插入 ' + shs_newVal + '，数组变为 [' + shs_arr.join(", ") + ']');
+                shs_render([at]);
+                shs_newVal += 11;
+                break;
+
+            case "sort":
+                shs_arr.sort(function(a, b) { return a - b; });
+                shs_showCode(
+                    'arr.<span class="shs_func">sort</span>((a,b) =&gt; a - b);',
+                    '<span style="color:#dcdcaa">数组已排序</span>'
+                );
+                shs_log('<b>sort()</b> → 从小到大排序，结果 [' + shs_arr.join(", ") + ']');
+                shs_render();
+                break;
+
+            case "reverse":
+                shs_arr.reverse();
+                shs_showCode(
+                    'arr.<span class="shs_func">reverse</span>();',
+                    '<span style="color:#dcdcaa">数组已反转</span>'
+                );
+                shs_log('<b>reverse()</b> → 前后反转，结果 [' + shs_arr.join(", ") + ']');
+                shs_render();
+                break;
+
+            case "slice":
+                var sliced = shs_arr.slice(1, 4);
+                shs_showCode(
+                    '<span class="shs_kw">const</span> sub = arr.<span class="shs_func">slice</span>(1, 4);',
+                    '<span class="shs_num">[' + sliced.join(", ") + ']</span>'
+                );
+                shs_log('<b>slice(1, 4)</b> → 截取下标 1,2,3 得 [' + sliced.join(", ") + ']（原数组不变：[' + shs_arr.join(", ") + ']）');
+                // 不动原数组，但给返回结果加高亮
+                shs_render();
+                break;
+
+            case "concat":
+                var concated = shs_arr.concat([99]);
+                shs_showCode(
+                    '<span class="shs_kw">const</span> merged = arr.<span class="shs_func">concat</span>([99]);',
+                    '<span class="shs_num">[' + concated.join(", ") + ']</span>'
+                );
+                shs_log('<b>concat([99])</b> → 拼出 [' + concated.join(", ") + ']（原数组不变：[' + shs_arr.join(", ") + ']）');
+                shs_render();
+                break;
+
+            case "indexOf":
+                var idx = shs_arr.indexOf(7);
+                shs_showCode(
+                    '<span class="shs_kw">const</span> i = arr.<span class="shs_func">indexOf</span>(7);',
+                    idx === -1 ? '<span class="shs_num">-1</span>（没找到）' : '<span class="shs_num">' + idx + '</span>'
+                );
+                shs_log('<b>indexOf(7)</b> → 返回 ' + idx + (idx === -1 ? '（不存在）' : '（下标 ' + idx + ' 处）'));
+                shs_render(idx >= 0 ? [idx] : null);
+                break;
+
+            case "includes":
+                var has = shs_arr.includes(5);
+                shs_showCode(
+                    '<span class="shs_kw">const</span> ok = arr.<span class="shs_func">includes</span>(5);',
+                    has ? '<span style="color:#38ef7d">true</span>' : '<span style="color:#ff6b6b">false</span>'
+                );
+                shs_log('<b>includes(5)</b> → ' + has);
+                var findIdx = shs_arr.indexOf(5);
+                shs_render(findIdx >= 0 ? [findIdx] : null);
+                break;
+
+            case "join":
+                var str = shs_arr.join(" - ");
+                shs_showCode(
+                    '<span class="shs_kw">const</span> s = arr.<span class="shs_func">join</span>(<span class="shs_str">" - "</span>);',
+                    '<span class="shs_str">"' + str + '"</span>'
+                );
+                shs_log('<b>join(" - ")</b> → "' + str + '"');
+                shs_render();
+                break;
+
+            case "forEach":
+                shs_showCode(
+                    'arr.<span class="shs_func">forEach</span>((v, i) =&gt; {\n' +
+                    '  console.<span class="shs_func">log</span>(i, v);\n' +
+                    '});',
+                    '<span style="color:#dcdcaa">undefined</span>（forEach 无返回值）'
+                );
+                shs_log('<b>forEach</b> 遍历了 ' + shs_arr.length + ' 个元素 → ' + shs_arr.join(", "));
+                // 挨个高亮动画
+                for (var k = 0; k < shs_arr.length; k++) {
+                    var elems = document.querySelectorAll(".shs_elem");
+                    if (elems[k]) elems[k].classList.add("shs_highlight");
+                    await shs_delay(260);
+                    if (elems[k]) elems[k].classList.remove("shs_highlight");
+                }
+                break;
+
+            case "map":
+                var mapped = shs_arr.map(function(x) { return x * 2; });
+                shs_showCode(
+                    '<span class="shs_kw">const</span> doubled = arr.<span class="shs_func">map</span>(x =&gt; x * 2);',
+                    '<span class="shs_num">[' + mapped.join(", ") + ']</span>'
+                );
+                shs_log('<b>map(x=>x*2)</b> → 新数组 [' + mapped.join(", ") + ']（原数组不变：[' + shs_arr.join(", ") + ']）');
+                shs_render();
+                break;
+
+            case "filter":
+                var filtered = shs_arr.filter(function(x) { return x > 5; });
+                shs_showCode(
+                    '<span class="shs_kw">const</span> big = arr.<span class="shs_func">filter</span>(x =&gt; x &gt; 5);',
+                    '<span class="shs_num">[' + filtered.join(", ") + ']</span>'
+                );
+                shs_log('<b>filter(x=>x>5)</b> → 新数组 [' + filtered.join(", ") + ']（原数组不变：[' + shs_arr.join(", ") + ']）');
+                // 高亮被选中的
+                var hlIdx = [];
+                for (var fi = 0; fi < shs_arr.length; fi++) {
+                    if (shs_arr[fi] > 5) hlIdx.push(fi);
+                }
+                shs_render(hlIdx);
+                break;
+
+            case "reduce":
+                var sum = shs_arr.reduce(function(acc, cur) { return acc + cur; }, 0);
+                shs_showCode(
+                    '<span class="shs_kw">const</span> sum = arr.<span class="shs_func">reduce</span>((a, c) =&gt; a + c, 0);',
+                    '<span class="shs_num">' + sum + '</span>'
+                );
+                shs_log('<b>reduce求和</b> → ' + shs_arr.join(" + ") + ' = <b>' + sum + '</b>');
+                shs_render();
+                break;
+            }
+        }
+
+        // ===== 初始渲染 =====
+        shs_render();
+        shs_log('初始数组：[' + shs_arr.join(", ") + ']，共 ' + shs_arr.length + ' 个元素');
+    </script>
+</body>
+</html>

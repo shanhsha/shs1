@@ -1,0 +1,377 @@
+<!--
+姓名：单海晟
+建立时间：2026-10-29
+使用的大模型：trae
+功能名称：汽车导购 tab 切换页面 — 5 个标签页（导购/3-9万/9-17万/17-42万/SUV）切换显示不同大标题和新闻列表
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16-4 汽车导购 tab 切换</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background: #fff;
+            color: #333;
+        }
+
+        .shs_container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 10px 20px 40px;
+        }
+
+        /* ===== Tab 栏 ===== */
+        .shs_tabbar {
+            display: flex;
+            gap: 12px;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 6px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+        .shs_tabbar::-webkit-scrollbar { height: 0; }
+
+        .shs_tab {
+            flex: 1;
+            min-width: 110px;
+            padding: 14px 18px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: #555;
+            background: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s, box-shadow 0.2s;
+            user-select: none;
+        }
+        .shs_tab:hover { color: #1a73e8; }
+        .shs_tab.shs_active {
+            color: #1a73e8;
+            box-shadow: 0 0 0 1px #1a73e8;
+        }
+        .shs_tab.shs_active::after {
+            content: "";
+            position: absolute;
+            left: 0; right: 0; bottom: -1px;
+            height: 3px;
+            background: #1a73e8;
+            border-radius: 0 0 4px 4px;
+        }
+
+        /* ===== 内容区 ===== */
+        .shs_content {
+            position: relative;
+            min-height: 400px;
+        }
+
+        .shs_pane {
+            display: none;
+            animation: shs_fadeIn 0.3s ease;
+        }
+        .shs_pane.shs_visible { display: block; }
+        @keyframes shs_fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 大标题 */
+        .shs_headline {
+            font-size: 30px;
+            font-weight: 900;
+            color: #d32f2f;
+            line-height: 1.35;
+            letter-spacing: 1px;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        /* 新闻列表 */
+        .shs_news {
+            list-style: none;
+        }
+        .shs_news li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px dashed #e8e8e8;
+            font-size: 15px;
+            line-height: 1.6;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .shs_news li:hover .shs_title { color: #1a73e8; }
+        .shs_news li:last-child { border-bottom: none; }
+
+        .shs_dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        /* 各点颜色 */
+        .shs_dot-c1 { background: #1a73e8; }
+        .shs_dot-c2 { background: #e53935; }
+        .shs_dot-c3 { background: #fb8c00; }
+        .shs_dot-c4 { background: #43a047; }
+        .shs_dot-c5 { background: #8e24aa; }
+        .shs_dot-c6 { background: #00acc1; }
+
+        .shs_title {
+            flex: 1;
+            color: #222;
+            font-size: 15px;
+            transition: color 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .shs_date {
+            color: #aaa;
+            font-size: 13px;
+            flex-shrink: 0;
+            padding-left: 20px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            .shs_tab { min-width: 90px; padding: 12px 8px; font-size: 14px; }
+            .shs_headline { font-size: 22px; }
+            .shs_title { white-space: normal; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="shs_container">
+
+    <!-- Tab 栏 -->
+    <div class="shs_tabbar" id="shs_tabbar">
+        <div class="shs_tab shs_active" data-tab="guide">导购</div>
+        <div class="shs_tab" data-tab="price1">3-9万</div>
+        <div class="shs_tab" data-tab="price2">9-17万</div>
+        <div class="shs_tab" data-tab="price3">17-42万</div>
+        <div class="shs_tab" data-tab="suv">SUV</div>
+    </div>
+
+    <!-- 内容区 -->
+    <div class="shs_content">
+
+        <!-- ===== Tab 1: 导购 ===== -->
+        <div class="shs_pane shs_visible" id="shs_pane-guide">
+            <h1 class="shs_headline">改变品牌的未来&nbsp;&nbsp;认识豪华品牌最便宜车型</h1>
+            <ul class="shs_news">
+                <li>
+                    <span class="shs_dot shs_dot-c1"></span>
+                    <span class="shs_title">推荐：X1等城市四驱Style+经济省油的SUV</span>
+                    <span class="shs_date">12/16</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c2"></span>
+                    <span class="shs_title">全景天窗/保养便利 30万齐夯四驱SUV推荐</span>
+                    <span class="shs_date">12/16</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c3"></span>
+                    <span class="shs_title">最高降幅20！奥迪Q5等年底特惠SUV盘点</span>
+                    <span class="shs_date">12/16</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c4"></span>
+                    <span class="shs_title">比拼硬实力 8款低配置四驱紧凑SUV性能点评</span>
+                    <span class="shs_date">12/16</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c5"></span>
+                    <span class="shs_title">花小钱也能养SUV 翼博等入门SUV使用手册</span>
+                    <span class="shs_date">12/15</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c6"></span>
+                    <span class="shs_title">最高优惠4.3万 十款15万年末购买推荐</span>
+                    <span class="shs_date">12/16</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ===== Tab 2: 3-9万 ===== -->
+        <div class="shs_pane" id="shs_pane-price1">
+            <h1 class="shs_headline">爸爸去哪？&nbsp;&nbsp;亲子出游适合车型和注意事项</h1>
+            <ul class="shs_news">
+                <li>
+                    <span class="shs_dot shs_dot-c1"></span>
+                    <span class="shs_title">推荐：X1等城市四驱Style+经济省油的SUV</span>
+                    <span class="shs_date">12/19</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c2"></span>
+                    <span class="shs_title">全景天窗/保养便利 30万齐夯四驱SUV推荐</span>
+                    <span class="shs_date">12/19</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c3"></span>
+                    <span class="shs_title">最高降幅20！奥迪Q5等年底特惠SUV盘点</span>
+                    <span class="shs_date">12/18</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c4"></span>
+                    <span class="shs_title">比拼硬实力 8款低配置四驱紧凑SUV性能点评</span>
+                    <span class="shs_date">12/18</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c5"></span>
+                    <span class="shs_title">新索迪欧/胜闻等！盘点2013中级车大变脸</span>
+                    <span class="shs_date">12/17</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ===== Tab 3: 9-17万 ===== -->
+        <div class="shs_pane" id="shs_pane-price2">
+            <h1 class="shs_headline">15万级降价车谁更值&nbsp;&nbsp;预算/油耗/空间较量</h1>
+            <ul class="shs_news">
+                <li>
+                    <span class="shs_dot shs_dot-c1"></span>
+                    <span class="shs_title">爸爸去哪？亲子出游适合车型和注意事项</span>
+                    <span class="shs_date">12/20</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c3"></span>
+                    <span class="shs_title">最高降幅20！奥迪Q5等年底特惠SUV盘点</span>
+                    <span class="shs_date">12/18</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c2"></span>
+                    <span class="shs_title">配置气缸背得肯定！待询GAS碰撞试验图解</span>
+                    <span class="shs_date">12/18</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c6"></span>
+                    <span class="shs_title">高尔夫1≠两厢版途胜 配置/动力差异解读</span>
+                    <span class="shs_date">12/17</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c5"></span>
+                    <span class="shs_title">花小钱也能养SUV 翼博等入门SUV使用手册</span>
+                    <span class="shs_date">12/16</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c4"></span>
+                    <span class="shs_title">最高优惠4.3万 十款15万年末购买推荐</span>
+                    <span class="shs_date">12/16</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ===== Tab 4: 17-42万 ===== -->
+        <div class="shs_pane" id="shs_pane-price3">
+            <h1 class="shs_headline">最低仅4.6万元起&nbsp;&nbsp;超低价SUV购买价值点评</h1>
+            <ul class="shs_news">
+                <li>
+                    <span class="shs_dot shs_dot-c1"></span>
+                    <span class="shs_title">全民摇号时代？六款低价占号必备车型推荐</span>
+                    <span class="shs_date">12/19</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c2"></span>
+                    <span class="shs_title">凌派/观致等 2013全新热门家用车盘点</span>
+                    <span class="shs_date">12/12</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c3"></span>
+                    <span class="shs_title">坚持高配路线！静态评测华泰路盛E70</span>
+                    <span class="shs_date">12/09</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c4"></span>
+                    <span class="shs_title">买车先考量销量 10月份销量前十名新车盘点</span>
+                    <span class="shs_date">11/29</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c5"></span>
+                    <span class="shs_title">抄底正当时 车展后清仓优惠老款车型推荐</span>
+                    <span class="shs_date">11/28</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c6"></span>
+                    <span class="shs_title">七家气质 细数车展那些低价车上的"神器"</span>
+                    <span class="shs_date">11/27</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ===== Tab 5: SUV ===== -->
+        <div class="shs_pane" id="shs_pane-suv">
+            <h1 class="shs_headline">B级品质满足A级需求&nbsp;&nbsp;路盛E70亮点详解析</h1>
+            <ul class="shs_news">
+                <li>
+                    <span class="shs_dot shs_dot-c1"></span>
+                    <span class="shs_title">购车必看 凯迪拉克XTS领先型28T深度体验</span>
+                    <span class="shs_date">12/20</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c2"></span>
+                    <span class="shs_title">爸爸去哪？亲子出游适合车型和注意事项</span>
+                    <span class="shs_date">12/20</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c3"></span>
+                    <span class="shs_title">推荐：X1等城市四驱Style+经济省油的SUV</span>
+                    <span class="shs_date">12/19</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c4"></span>
+                    <span class="shs_title">全民摇号时代？六款低价占号必备车型推荐</span>
+                    <span class="shs_date">12/19</span>
+                </li>
+                <li>
+                    <span class="shs_dot shs_dot-c5"></span>
+                    <span class="shs_title">最高降幅20！奥迪Q5等年底特惠SUV盘点</span>
+                    <span class="shs_date">12/18</span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Tab 切换
+    var tabs = document.querySelectorAll(".shs_tab");
+    var panes = document.querySelectorAll(".shs_pane");
+
+    tabs.forEach(function(tab) {
+        tab.addEventListener("click", function() {
+            var target = tab.getAttribute("data-tab");
+
+            // 切 tab 高亮
+            tabs.forEach(function(t) { t.classList.remove("shs_active"); });
+            tab.classList.add("shs_active");
+
+            // 切内容面板
+            panes.forEach(function(p) { p.classList.remove("shs_visible"); });
+            var activePane = document.getElementById("shs_pane-" + target);
+            activePane.classList.add("shs_visible");
+        });
+    });
+
+    // 新闻点击：提示
+    document.querySelectorAll(".shs_news li").forEach(function(li) {
+        li.addEventListener("click", function() {
+            var title = li.querySelector(".shs_title").textContent;
+            alert("打开文章：\n" + title);
+        });
+    });
+</script>
+</body>
+</html>
